@@ -40,14 +40,14 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 public class AutoWithVision extends LinearOpMode {
 
-/*
+
     //basic set up  code for search: 1001
     private static final double DRIVE_SPEED = .25, TURN_SPEED = 1, ARM_SPEED = .8, SIDE_SPEED = .3;
 
     private Config robot = new Config(this);
-*/
+
     @Override public void runOpMode() {
-        /*
+/*
         //basic set up code1001
         robot.ConfigureRobtHardware();
         robot.ConfigureVision();
@@ -63,7 +63,7 @@ public class AutoWithVision extends LinearOpMode {
 
         //movement is opposite
         robot.distinctDrive(DRIVE_SPEED,-11,-11,-11,-11,2);
-        visionY=robot.lookForStoneY(2);
+        //visionY=robot.lookForStoneY(2);
         if (stoneFind){
 
             robot.distinctDrive(SIDE_SPEED,-visionY,visionY,visionY,-visionY,2);
@@ -72,7 +72,7 @@ public class AutoWithVision extends LinearOpMode {
 
         robot.targetsSkyStone.deactivate();
 
-         */
+*/
     }
 
 }

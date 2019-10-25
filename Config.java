@@ -50,7 +50,7 @@ public class Config {
     }
 
 
-    /*
+
     //vision part
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
     private static final boolean PHONE_IS_PORTRAIT = false  ;
@@ -83,25 +83,7 @@ public class Config {
     private float phoneYRotate    = 0;
     private float phoneZRotate    = 0;
 
-    VuforiaTrackables targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
 
-    VuforiaTrackable stoneTarget = targetsSkyStone.get(0);
-    VuforiaTrackable blueRearBridge = targetsSkyStone.get(1);
-    VuforiaTrackable redRearBridge = targetsSkyStone.get(2);
-    VuforiaTrackable redFrontBridge = targetsSkyStone.get(3);
-    VuforiaTrackable blueFrontBridge = targetsSkyStone.get(4);
-    VuforiaTrackable red1 = targetsSkyStone.get(5);
-    VuforiaTrackable red2 = targetsSkyStone.get(6);
-    VuforiaTrackable front1 = targetsSkyStone.get(7);
-    VuforiaTrackable front2 = targetsSkyStone.get(8);
-    VuforiaTrackable blue1 = targetsSkyStone.get(9);
-    VuforiaTrackable blue2 = targetsSkyStone.get(10);
-    VuforiaTrackable rear1 = targetsSkyStone.get(11);
-    VuforiaTrackable rear2 = targetsSkyStone.get(12);
-    // For convenience, gather together all the trackable objects in one easily-iterable collection
-    List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
-
-    */
 
     private boolean stoneFind=false;
 
@@ -145,15 +127,14 @@ public class Config {
         this.Servo_A = OpMode.hardwareMap.servo.get("Servo A");
         this.status("Done!");
     }
-    /*
-    void ConfigureVision(){
+    ///*
+    public void ConfigureVision(){
         //the value of camera id is 2131099685(get from test)
         //this line of code below is not working because the hardwareMap only works in opmode
         //int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        int cameraMoniterViewId=2131099685;//this value is read from test with the zte phones on the practice drive train.
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMoniterViewId);
+        int cameraMonitorViewId=2131099685;//this value is read from test with the zte phones on the practice drive train.
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
-        // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
         parameters.cameraDirection   = CAMERA_CHOICE;
@@ -163,6 +144,21 @@ public class Config {
 
         // Load the data sets for the trackable objects. These particular data
         // sets are stored in the 'assets' part of our application.
+        VuforiaTrackables targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
+
+        VuforiaTrackable stoneTarget = targetsSkyStone.get(0);
+        VuforiaTrackable blueRearBridge = targetsSkyStone.get(1);
+        VuforiaTrackable redRearBridge = targetsSkyStone.get(2);
+        VuforiaTrackable redFrontBridge = targetsSkyStone.get(3);
+        VuforiaTrackable blueFrontBridge = targetsSkyStone.get(4);
+        VuforiaTrackable red1 = targetsSkyStone.get(5);
+        VuforiaTrackable red2 = targetsSkyStone.get(6);
+        VuforiaTrackable front1 = targetsSkyStone.get(7);
+        VuforiaTrackable front2 = targetsSkyStone.get(8);
+        VuforiaTrackable blue1 = targetsSkyStone.get(9);
+        VuforiaTrackable blue2 = targetsSkyStone.get(10);
+        VuforiaTrackable rear1 = targetsSkyStone.get(11);
+        VuforiaTrackable rear2 = targetsSkyStone.get(12);
         stoneTarget.setName("Stone Target");
         blueRearBridge.setName("Blue Rear Bridge");
         redRearBridge.setName("Red Rear Bridge");
@@ -176,6 +172,7 @@ public class Config {
         blue2.setName("Blue Perimeter 2");
         rear1.setName("Rear Perimeter 1");
         rear2.setName("Rear Perimeter 2");
+        List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
 
         allTrackables.addAll(targetsSkyStone);
 
@@ -278,7 +275,7 @@ public class Config {
         }
 
     }
-    */
+
 
 
     void resetMotorsForAutonomous(DcMotor... motors) {
@@ -355,8 +352,8 @@ public class Config {
         }
         return (0);
     }
-*/
 
+*/
     //I am not sure what is the code below doing
     void status(String string) {
         this.OpMode.telemetry.addData("Status", string);
