@@ -35,23 +35,19 @@ import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
-
-@Autonomous(name = "AutoWithVision", group = "Test")
 //@Disabled
+@Autonomous(name = "AutoWithVision", group = "Test")
+
 public class AutoWithVision extends LinearOpMode {
 
-
+/*
     //basic set up  code for search: 1001
     private static final double DRIVE_SPEED = .25, TURN_SPEED = 1, ARM_SPEED = .8, SIDE_SPEED = .3;
 
     private Config robot = new Config(this);
-
+*/
     @Override public void runOpMode() {
         /*
-         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
-         * We can pass Vuforia the handle to a camera preview resource (on the RC phone);
-         * If no camera monitor is desired, use the parameter-less constructor instead (commented out below).
-         */
         //basic set up code1001
         robot.ConfigureRobtHardware();
         robot.ConfigureVision();
@@ -75,6 +71,10 @@ public class AutoWithVision extends LinearOpMode {
         sleep(5000);
 
         robot.targetsSkyStone.deactivate();
+
+         */
     }
+
 }
+
 

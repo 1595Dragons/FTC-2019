@@ -50,7 +50,7 @@ public class Config {
     }
 
 
-
+    /*
     //vision part
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
     private static final boolean PHONE_IS_PORTRAIT = false  ;
@@ -98,8 +98,10 @@ public class Config {
     VuforiaTrackable blue2 = targetsSkyStone.get(10);
     VuforiaTrackable rear1 = targetsSkyStone.get(11);
     VuforiaTrackable rear2 = targetsSkyStone.get(12);
-    // For convenience, gather together all the trackable objects in one easily-iterable collection */
+    // For convenience, gather together all the trackable objects in one easily-iterable collection
     List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
+
+    */
 
     private boolean stoneFind=false;
 
@@ -143,7 +145,7 @@ public class Config {
         this.Servo_A = OpMode.hardwareMap.servo.get("Servo A");
         this.status("Done!");
     }
-
+    /*
     void ConfigureVision(){
         //the value of camera id is 2131099685(get from test)
         //this line of code below is not working because the hardwareMap only works in opmode
@@ -270,12 +272,13 @@ public class Config {
                 .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES, phoneYRotate, phoneZRotate, phoneXRotate));
 
-        /**  Let all the trackable listeners know where the phone is.  */
+        //  Let all the trackable listeners know where the phone is.
         for (VuforiaTrackable trackable : allTrackables) {
             ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(robotFromCamera, parameters.cameraDirection);
         }
 
     }
+    */
 
 
     void resetMotorsForAutonomous(DcMotor... motors) {
@@ -328,7 +331,7 @@ public class Config {
         // Stop all motion, and reset the motors
         this.resetMotorsForAutonomous(this.left_back, this.left_front, this.right_back, this.right_front);
     }
-
+/*
     double lookForStoneY(double timeoutS){
         this.timer.reset();
         stoneFind=false;
@@ -352,11 +355,13 @@ public class Config {
         }
         return (0);
     }
-
+*/
 
     //I am not sure what is the code below doing
     void status(String string) {
         this.OpMode.telemetry.addData("Status", string);
         this.OpMode.telemetry.update();
     }
+
+
 }
