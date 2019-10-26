@@ -84,7 +84,8 @@ public class Config {
     private float phoneZRotate    = 0;
 
 
-
+    VuforiaTrackables targetsSkyStone;
+    List<VuforiaTrackable> allTrackables;
     private boolean stoneFind=false;
 
 
@@ -128,7 +129,7 @@ public class Config {
         this.status("Done!");
     }
     ///*
-    public void ConfigureVision(){
+    void ConfigureVision(){
         //the value of camera id is 2131099685(get from test)
         //this line of code below is not working because the hardwareMap only works in opmode
         //int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
@@ -144,7 +145,7 @@ public class Config {
 
         // Load the data sets for the trackable objects. These particular data
         // sets are stored in the 'assets' part of our application.
-        VuforiaTrackables targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
+        targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
 
         VuforiaTrackable stoneTarget = targetsSkyStone.get(0);
         VuforiaTrackable blueRearBridge = targetsSkyStone.get(1);
@@ -172,7 +173,7 @@ public class Config {
         blue2.setName("Blue Perimeter 2");
         rear1.setName("Rear Perimeter 1");
         rear2.setName("Rear Perimeter 2");
-        List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
+        allTrackables = new ArrayList<VuforiaTrackable>();
 
         allTrackables.addAll(targetsSkyStone);
 
@@ -328,7 +329,7 @@ public class Config {
         // Stop all motion, and reset the motors
         this.resetMotorsForAutonomous(this.left_back, this.left_front, this.right_back, this.right_front);
     }
-/*
+
     double lookForStoneY(double timeoutS){
         this.timer.reset();
         stoneFind=false;
@@ -353,7 +354,7 @@ public class Config {
         return (0);
     }
 
-*/
+
     //I am not sure what is the code below doing
     void status(String string) {
         this.OpMode.telemetry.addData("Status", string);

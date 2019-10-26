@@ -47,7 +47,7 @@ public class AutoWithVision extends LinearOpMode {
     private Config robot = new Config(this);
 
     @Override public void runOpMode() {
-/*
+
         //basic set up code1001
         robot.ConfigureRobtHardware();
         robot.ConfigureVision();
@@ -72,7 +72,7 @@ public class AutoWithVision extends LinearOpMode {
 
         robot.targetsSkyStone.deactivate();
 
-*/
+
     }
 
 }
