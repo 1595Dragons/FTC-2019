@@ -38,7 +38,9 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 public class Config {
     Servo Servo_A;
+    BNO055IMU imu;
     DcMotor left_front, right_front, left_back, right_back;
+    Boolean stoneFind;
     // A timer object
     private ElapsedTime timer = new ElapsedTime();
     private final int EncoderNumberChangePerInch = 34;
@@ -86,7 +88,7 @@ public class Config {
 
     VuforiaTrackables targetsSkyStone;
     List<VuforiaTrackable> allTrackables;
-    private boolean stoneFind=false;
+
 
 
     void ConfigureRobtHardware() {
@@ -127,6 +129,15 @@ public class Config {
         this.status("Setting up left servo");
         this.Servo_A = OpMode.hardwareMap.servo.get("Servo A");
         this.status("Done!");
+
+        this.status("Setting up imu...");
+        final BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();
+        imuParameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        imuParameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        imuParameters.mode = BNO055IMU.SensorMode.IMU;
+        this.imu = OpMode.hardwareMap.get(BNO055IMU.class, "imu");
+        this.imu.initialize(imuParameters);
+        this.status("hardware finished");
     }
     ///*
     void ConfigureVision(){
@@ -274,10 +285,29 @@ public class Config {
         for (VuforiaTrackable trackable : allTrackables) {
             ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(robotFromCamera, parameters.cameraDirection);
         }
-
+        this.status("vision finiehed");
     }
 
+    int getAngle() {
+        return this.imu.isGyroCalibrated() ? Math.round(this.imu.getAngularOrientation(AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle) : 0;
+    }
+    double getError(int desiredAngle) {
+        double error = this.imu.isGyroCalibrated() ? Math.round((desiredAngle) - (this.getAngle())) : 0;
 
+        while (error > 180) {
+            error -= 360;
+        }
+        while (error <= -180) {
+            error += 360;
+        }
+
+        return error;
+    }
+
+    private double getSteer(double error, double PCoeff) {
+        // Find the steer value. Subtract 180 to get the direction in case its actually negative
+        return Range.clip((error) * PCoeff, -1, 1);
+    }
 
     void resetMotorsForAutonomous(DcMotor... motors) {
         for (DcMotor motor : motors) {
@@ -299,6 +329,13 @@ public class Config {
         }
         return reached;
     }
+    /* How to use distinctDrive
+    forward is -,-,-,-;
+
+
+     */
+
+
     void distinctDrive(double speed, double LFInches, double LBInches, double RFInches, double RBInches, double timeoutS) {
 
         // Reset the motor encoders, and set them to RUN_TO_POSITION
@@ -330,6 +367,16 @@ public class Config {
         this.resetMotorsForAutonomous(this.left_back, this.left_front, this.right_back, this.right_front);
     }
 
+    void TurnByImu(double speed, int target, double timeOut) {
+        double error = this.getError(target);
+        double magicNumber = 0.23;
+        distinctDrive(speed, error * magicNumber,error * magicNumber, -error * magicNumber,-error * magicNumber, timeOut);
+        this.OpMode.telemetry.addData("error", error);
+        this.OpMode.telemetry.addData("leftmove", -error*magicNumber);
+        this.OpMode.telemetry.addData("current",this.getAngle());
+        this.OpMode.telemetry.update();
+    }
+
     double lookForStoneY(double timeoutS){
         this.timer.reset();
         stoneFind=false;
@@ -338,6 +385,7 @@ public class Config {
                 if (((VuforiaTrackableDefaultListener)trackable.getListener()).isVisible()) {
                     if (trackable.getName()=="Stone Target") {
                         OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener)trackable.getListener()).getUpdatedRobotLocation();
+                        this.OpMode.telemetry.addLine("StoneFound");
                         if (robotLocationTransform != null) {
                             lastLocation = robotLocationTransform;
                         }

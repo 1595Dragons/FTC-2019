@@ -28,17 +28,13 @@
  */
 
 package org.firstinspires.ftc.teamcode;
-
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
-import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
-//@Disabled
-@Autonomous(name = "AutoWithVision", group = "Test")
 
-public class AutoWithVision extends LinearOpMode {
+@TeleOp(name = "TurnByImu", group = "Official")
+//@Disabled
+public class TurnByImu extends LinearOpMode {
 
 
     //basic set up  code for search: 1001
@@ -46,38 +42,25 @@ public class AutoWithVision extends LinearOpMode {
 
     private Config robot = new Config(this);
 
-    @Override public void runOpMode() {
+    public void runOpMode() {
 
         //basic set up code1001
         robot.ConfigureRobtHardware();
-        robot.ConfigureVision();
+        //robot.ConfigureVision();
         robot.status("Resetting motors");
         robot.resetMotorsForAutonomous(robot.left_back, robot.left_front, robot.right_back, robot.right_front);
         waitForStart();
-
-        robot.targetsSkyStone.activate();
-        double visionX=0, visionY=0, visionTurn=0;
-        int tryVision=0;
-        //movement is opposite
-        robot.distinctDrive(DRIVE_SPEED,-11,-11,-11,-11,2);
-        visionY=robot.lookForStoneY(2);
-        if (robot.stoneFind){
-
-            robot.distinctDrive(SIDE_SPEED,-visionY,visionY,visionY,-visionY,2);
+        if(gamepad1.a){
+            robot.TurnByImu(TURN_SPEED,0,3);
         }
-
-        sleep(1000);
-        robot.TurnByImu(TURN_SPEED,90,2);
-
-
-
-        sleep(5000);
-
-        robot.targetsSkyStone.deactivate();
-
-
+        if(gamepad1.b){
+            robot.TurnByImu(TURN_SPEED,90,3);
+        }
+        if(gamepad1.x){
+            robot.TurnByImu(TURN_SPEED,-90,3);
+        }
+        if(gamepad1.y){
+            telemetry.addData("current location", robot.getAngle());
+        }
     }
-
 }
-
-
