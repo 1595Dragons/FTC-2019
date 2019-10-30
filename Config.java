@@ -34,6 +34,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
+import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
 
 
 public class Config {
@@ -54,8 +55,8 @@ public class Config {
 
 
     //vision part
-    private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
-    private static final boolean PHONE_IS_PORTRAIT = false  ;
+    private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = FRONT;
+    private static final boolean PHONE_IS_PORTRAIT = true;
     private static final String VUFORIA_KEY =
             "AY2fMLf/////AAABmTcpSvf6l0P0nO4JSNywZ3gPjoh6efhgyl8JY4mDVIh6eVuG2gGzL5W6EYS7C9/o8GCbSMEChTxOmKEDWKQJLKtnTg5uVfGa99ZxHTk5bhGKOfr5j2/68p3/MCBlBUAz4doer2t9/vh5qZUs48mUKELA0LD8q52rMV5zUFsbEp2x9Rk1Wkt2FhQp1nSFbqqwEFeMOsSLmyfc9MYBA3nLxK2ITuN4Z7pdwmaO2yH7r6cOpA5qPMgLwPEaRC54ESiKHVFcKIUF5DpSMlGaoHMGvoND/PBNxUsapcVrKBKzLgTtagEXsZSODal109yv6DBZgI9vgEUoHHBB9mEJaZMROf/U55avUbg1FvIyBKSYzgzW";
 
@@ -143,8 +144,7 @@ public class Config {
     void ConfigureVision(){
         //the value of camera id is 2131099685(get from test)
         //this line of code below is not working because the hardwareMap only works in opmode
-        //int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        int cameraMonitorViewId=2131099685;//this value is read from test with the zte phones on the practice drive train.
+        int cameraMonitorViewId = OpMode.hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", OpMode.hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
 
@@ -369,7 +369,7 @@ public class Config {
 
     void TurnByImu(double speed, int target, double timeOut) {
         double error = this.getError(target);
-        double magicNumber = 0.23;
+        double magicNumber = 0.187;//over shoot a tiny bit when =0.19
         distinctDrive(speed, error * magicNumber,error * magicNumber, -error * magicNumber,-error * magicNumber, timeOut);
         this.OpMode.telemetry.addData("error", error);
         this.OpMode.telemetry.addData("leftmove", -error*magicNumber);
@@ -401,13 +401,9 @@ public class Config {
         }
         return (0);
     }
-
-
     //I am not sure what is the code below doing
     void status(String string) {
         this.OpMode.telemetry.addData("Status", string);
         this.OpMode.telemetry.update();
     }
-
-
 }

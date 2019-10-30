@@ -47,20 +47,24 @@ public class TurnByImu extends LinearOpMode {
         //basic set up code1001
         robot.ConfigureRobtHardware();
         //robot.ConfigureVision();
-        robot.status("Resetting motors");
         robot.resetMotorsForAutonomous(robot.left_back, robot.left_front, robot.right_back, robot.right_front);
+        robot.status("wait for start");
         waitForStart();
-        if(gamepad1.a){
-            robot.TurnByImu(TURN_SPEED,0,3);
+
+        while (opModeIsActive()){
+            if(gamepad1.a){
+                robot.TurnByImu(TURN_SPEED,0,3);
+            }
+            if(gamepad1.b){
+                robot.TurnByImu(TURN_SPEED,90,3);
+            }
+            if(gamepad1.x){
+                robot.TurnByImu(TURN_SPEED,-90,3);
+            }
+            if(gamepad1.y){
+                telemetry.addData("current location", robot.getAngle());
+            }
         }
-        if(gamepad1.b){
-            robot.TurnByImu(TURN_SPEED,90,3);
-        }
-        if(gamepad1.x){
-            robot.TurnByImu(TURN_SPEED,-90,3);
-        }
-        if(gamepad1.y){
-            telemetry.addData("current location", robot.getAngle());
-        }
+
     }
 }

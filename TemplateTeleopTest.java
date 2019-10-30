@@ -51,18 +51,22 @@ public class TemplateTeleopTest extends LinearOpMode {
         robot.resetMotorsForAutonomous(robot.left_back, robot.left_front, robot.right_back, robot.right_front);
         waitForStart();
 
-        if(gamepad1.a){
 
-        }
-        if(gamepad1.b){
+        while (opModeIsActive()){
+            if(gamepad1.a){
 
-        }
-        if(gamepad1.x){
+            }
+            if(gamepad1.b){
 
-        }
-        if(gamepad1.y){
+            }
+            if(gamepad1.x){
 
+            }
+            if(gamepad1.y){
+
+            }
         }
+
     }
 
 }
