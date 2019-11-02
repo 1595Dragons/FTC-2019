@@ -54,7 +54,6 @@ public class TemplateTeleopTest extends LinearOpMode {
 
         while (opModeIsActive()){
             if(gamepad1.a){
-
             }
             if(gamepad1.b){
 

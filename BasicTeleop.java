@@ -3,7 +3,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name = "7935 TeleOp", group = "Official")
+@TeleOp(name = "Basic TeleOp", group = "Official")
 public class BasicTeleop extends LinearOpMode {
 
     private Config robot = new Config(this);
@@ -13,51 +13,63 @@ public class BasicTeleop extends LinearOpMode {
         // Initialize the robot
         robot.ConfigureRobtHardware();
         //Motor Power
-        double speedForTurn = 0.6, speedForMove = 0.7, speedForSide = 0.8, intakePower = 1, armPower = 1, extendPower = 1;
-        double allPower = 0.7;
-        double powerTurn = 1.5, powerMove=1.8,powerSide=1.9;
-        boolean powerUp=false;
+        double speedTurn=0.9,speedMove=0.9,speedSide=1;
+        double slowTurn = 0.5, slowMove=0.5,slowSide=0.7;
+        boolean slowMode=false, powerMode=false;
+        double powerUp=1.3;
         waitForStart();
 
         while (opModeIsActive()) {
 
             //Power up function
-            if (gamepad2.right_trigger>0){
-                powerUp=true;
+            if (gamepad2.left_trigger>0){
+                slowMode=true;
             }else{
-                powerUp=false;
+                slowMode=false;
             }
-            double driveForward = gamepad2.left_stick_y * speedForMove, driveRightSide = gamepad2.left_stick_x * speedForSide,
-                    turnRight = -gamepad2.right_stick_x * speedForTurn;
+            if (gamepad2.right_trigger>0){
+                powerMode=true;
+                slowMode=false;
+            }else{
+                powerMode=false;
+            }
+
+            double driveForward = gamepad2.left_stick_y * speedMove, driveRightSide = gamepad2.left_stick_x * speedSide,
+                    turnRight = -gamepad2.right_stick_x * speedTurn;
             //prevent small input from stick
             driveForward = (driveForward >= -0.1 && driveForward <= 0.1) ? 0 : driveForward;
             driveRightSide = (driveRightSide >= -0.1 && driveRightSide <= 0.1) ? 0 : driveRightSide;
             turnRight = (turnRight >= -0.1 && turnRight <= 0.1) ? 0 : turnRight;
 
             if (gamepad2.dpad_left){
-                driveRightSide=-1*speedForSide;
+                driveRightSide=-1*speedSide;
             }
             if (gamepad2.dpad_right){
-                driveRightSide=1*speedForSide;
+                driveRightSide=1*speedSide;
             }
             if(gamepad2.dpad_up){
-                driveForward=1*speedForMove;
+                driveForward=1*speedMove;
             }
             if(gamepad2.dpad_down){
-                driveForward=-1*speedForMove;
+                driveForward=-1*speedMove;
             }
 
             // Send calculated power to wheels
-            if (powerUp){
-                robot.left_front.setPower(Range.clip((-driveRightSide*powerSide + driveForward*powerMove + turnRight*powerTurn) * allPower, -1.0, 1.0));
-                robot.right_front.setPower(Range.clip((driveRightSide*powerSide + driveForward*powerMove - turnRight*powerTurn) * allPower, -1.0, 1.0));
-                robot.left_back.setPower(Range.clip((driveRightSide*powerSide + driveForward*powerMove + turnRight*powerTurn) * allPower, -1.0, 1.0));
-                robot.right_back.setPower(Range.clip((-driveRightSide*powerSide + driveForward*powerMove - turnRight*powerTurn) * allPower, -1.0, 1.0));
+            if (slowMode){
+                robot.left_front.setPower(Range.clip((-driveRightSide*slowSide + driveForward*slowMove + turnRight*slowTurn), -1.0, 1.0));
+                robot.right_front.setPower(Range.clip((driveRightSide*slowSide + driveForward*slowMove - turnRight*slowTurn), -1.0, 1.0));
+                robot.left_back.setPower(Range.clip((driveRightSide*slowSide + driveForward*slowMove + turnRight*slowTurn), -1.0, 1.0));
+                robot.right_back.setPower(Range.clip((-driveRightSide*slowSide + driveForward*slowMove - turnRight*slowTurn), -1.0, 1.0));
+            }else if(!powerMode){
+                robot.left_front.setPower(Range.clip((-driveRightSide + driveForward + turnRight), -1.0, 1.0));
+                robot.right_front.setPower(Range.clip((driveRightSide + driveForward - turnRight), -1.0, 1.0));
+                robot.left_back.setPower(Range.clip((driveRightSide + driveForward + turnRight), -1.0, 1.0));
+                robot.right_back.setPower(Range.clip((-driveRightSide + driveForward - turnRight), -1.0, 1.0));
             }else{
-                robot.left_front.setPower(Range.clip((-driveRightSide + driveForward + turnRight) * allPower, -1.0, 1.0));
-                robot.right_front.setPower(Range.clip((driveRightSide + driveForward - turnRight) * allPower, -1.0, 1.0));
-                robot.left_back.setPower(Range.clip((driveRightSide + driveForward + turnRight) * allPower, -1.0, 1.0));
-                robot.right_back.setPower(Range.clip((-driveRightSide + driveForward - turnRight) * allPower, -1.0, 1.0));
+                robot.left_front.setPower(Range.clip(((-driveRightSide + driveForward + turnRight)*powerUp), -1.0, 1.0));
+                robot.right_front.setPower(Range.clip(((driveRightSide + driveForward - turnRight)*powerUp), -1.0, 1.0));
+                robot.left_back.setPower(Range.clip(((driveRightSide + driveForward + turnRight)*powerUp), -1.0, 1.0));
+                robot.right_back.setPower(Range.clip(((-driveRightSide + driveForward - turnRight)*powerUp), -1.0, 1.0));
             }
 
 

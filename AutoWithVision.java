@@ -42,7 +42,7 @@ public class AutoWithVision extends LinearOpMode {
 
 
     //basic set up  code for search: 1001
-    private static final double DRIVE_SPEED = .25, TURN_SPEED = .4, ARM_SPEED = .8, SIDE_SPEED = .3;
+    private static final double DRIVE_SPEED =1, TURN_SPEED=1, ARM_SPEED =1, SIDE_SPEED =0.7;
 
     private Config robot = new Config(this);
 
@@ -51,27 +51,47 @@ public class AutoWithVision extends LinearOpMode {
         //basic set up code1001
         robot.ConfigureRobtHardware();
         robot.ConfigureVision();
-        robot.status("Resetting motors");
         robot.resetMotorsForAutonomous(robot.left_back, robot.left_front, robot.right_back, robot.right_front);
+        robot.status("ready");
         waitForStart();
 
         robot.targetsSkyStone.activate();
         double visionX=0, visionY=0, visionTurn=0;
-        int tryVision=0;
-        //movement is opposite
-        robot.distinctDrive(DRIVE_SPEED,-11,-11,-11,-11,2);
+        robot.DriveForward(DRIVE_SPEED,23,2);
         visionY=robot.lookForStoneY(2);
         if (robot.stoneFind){
-
-            robot.distinctDrive(SIDE_SPEED,-visionY,visionY,visionY,-visionY,2);
+            telemetry.addData("stone","find");
+            telemetry.update();
+            robot.DriveLeft(SIDE_SPEED,visionY,2);
         }
 
         sleep(1000);
+        robot.DriveForward(DRIVE_SPEED,45,3);
+        robot.DriveForward(DRIVE_SPEED,-5,1);
+
+
+        robot.TurnByImu(TURN_SPEED,-90,2);
+        robot.DriveForward(DRIVE_SPEED,66.5,3);
+
+
+        robot.TurnByImu(TURN_SPEED,-135,1.5);
+        robot.DriveForward(0.7,11,2);
+        robot.DriveForward(DRIVE_SPEED, -8,1.5);
+        robot.TurnByImu(TURN_SPEED,-90,1.5);
+        robot.DriveForward(DRIVE_SPEED,25,2);
+        robot.TurnByImu(TURN_SPEED,-179,1.5);
+        robot.DriveForward(DRIVE_SPEED,40,2);
         robot.TurnByImu(TURN_SPEED,90,2);
+        robot.DriveForward(DRIVE_SPEED,50,3);
+        /*
+        robot.TurnByImu(TURN_SPEED,-170,2);
+        robot.DriveForward(DRIVE_SPEED,30,2);
+        robot.TurnByImu(TURN_SPEED,-170,2);
+        robot.DriveForward(DRIVE_SPEED,25,2);
+        */
 
 
 
-        sleep(5000);
 
         robot.targetsSkyStone.deactivate();
 

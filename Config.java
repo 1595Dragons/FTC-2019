@@ -44,7 +44,11 @@ public class Config {
     Boolean stoneFind;
     // A timer object
     private ElapsedTime timer = new ElapsedTime();
-    private final int EncoderNumberChangePerInch = 34;
+
+    //distance modifiers
+    private final int EncoderNumberChangePerInch = 118;
+
+
     // Get the important bits from the opMode
     private LinearOpMode OpMode;
 
@@ -309,6 +313,8 @@ public class Config {
         return Range.clip((error) * PCoeff, -1, 1);
     }
 
+
+
     void resetMotorsForAutonomous(DcMotor... motors) {
         for (DcMotor motor : motors) {
             motor.setPower(0);
@@ -366,16 +372,24 @@ public class Config {
         // Stop all motion, and reset the motors
         this.resetMotorsForAutonomous(this.left_back, this.left_front, this.right_back, this.right_front);
     }
+    void DriveForward(double speed,double distance,double timeOutS){
+        distinctDrive(speed,-distance,-distance,-distance,-distance,timeOutS);
+    }
+    void DriveLeft(double speed,double distance,double timeOutS){
+        distinctDrive(speed,-distance,distance,distance,-distance,timeOutS);
+    }
+
 
     void TurnByImu(double speed, int target, double timeOut) {
         double error = this.getError(target);
-        double magicNumber = 0.187;//over shoot a tiny bit when =0.19
+        double magicNumber = 0.184;//over shoot a tiny bit when =0.19
         distinctDrive(speed, error * magicNumber,error * magicNumber, -error * magicNumber,-error * magicNumber, timeOut);
         this.OpMode.telemetry.addData("error", error);
         this.OpMode.telemetry.addData("leftmove", -error*magicNumber);
         this.OpMode.telemetry.addData("current",this.getAngle());
         this.OpMode.telemetry.update();
     }
+
 
     double lookForStoneY(double timeoutS){
         this.timer.reset();

@@ -32,13 +32,13 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name = "Basic", group = "Official")
+@Autonomous(name = "DistinctDriveTest", group = "Official")
 //@Disabled
-public class BasicAuto extends LinearOpMode {
+public class MotorDirectionInAutoTest extends LinearOpMode {
 
 
     //basic set up  code for search: 1001
-    private static final double DRIVE_SPEED = .25, TURN_SPEED = .4, ARM_SPEED = .8, SIDE_SPEED = .3;
+    private static final double DRIVE_SPEED = .7, TURN_SPEED = .7, ARM_SPEED = .7, SIDE_SPEED = .7;
 
     private Config robot = new Config(this);
 
@@ -46,18 +46,19 @@ public class BasicAuto extends LinearOpMode {
 
         //basic set up code1001
         robot.ConfigureRobtHardware();
-        robot.ConfigureVision();
         robot.resetMotorsForAutonomous(robot.left_back, robot.left_front, robot.right_back, robot.right_front);
-
         robot.status("ready");
+
+
         waitForStart();
 
-        robot.targetsSkyStone.activate();
-        double visionX=0, visionY=0, visionTurn=0;
-        int tryVision=0;
+        robot.DriveForward(DRIVE_SPEED,10,2);
+        sleep(1000);
+        robot.DriveForward(DRIVE_SPEED,20,4);
+        sleep(1000);
+        robot.DriveForward(DRIVE_SPEED,-30,5);
 
-
-        robot.targetsSkyStone.deactivate();
+        //move,side way,turn
 
 
     }

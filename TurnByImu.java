@@ -38,7 +38,7 @@ public class TurnByImu extends LinearOpMode {
 
 
     //basic set up  code for search: 1001
-    private static final double DRIVE_SPEED = .25, TURN_SPEED = .4, ARM_SPEED = .8, SIDE_SPEED = .3;
+    private static final double DRIVE_SPEED = .25, TURN_SPEED = .9, ARM_SPEED = .8, SIDE_SPEED = .3;
 
     private Config robot = new Config(this);
 
