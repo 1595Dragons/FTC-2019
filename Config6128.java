@@ -10,7 +10,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotor.RunMode;
 import com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior;
 import com.qualcomm.robotcore.hardware.DcMotorSimple.Direction;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -39,10 +38,9 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
 
 
-public class Config {
-    CRServo intake_right,intake_left;
+    public class Config6128 {
+    Servo servo_0,servo_1;
 
-    DigitalChannel intake_button;
     BNO055IMU imu;
     DcMotor left_front, right_front, left_back, right_back;
     Boolean stoneFind;
@@ -51,13 +49,13 @@ public class Config {
     private ElapsedTime timer = new ElapsedTime();
 
     //distance modifiers
-    private final int EncoderNumberChangePerInch = 118;
+    private final int EncoderNumberChangePerInch = 38;
 
 
     // Get the important bits from the opMode
     private LinearOpMode OpMode;
 
-    Config(LinearOpMode OpMode) {
+    Config6128(LinearOpMode OpMode) {
         this.OpMode = OpMode;
     }
 
@@ -102,27 +100,7 @@ public class Config {
 
 
     void ConfigureRobtHardware() {
-        // Declare and setup intake_left
-        this.intake_left = OpMode.hardwareMap.crservo.get("intake left");
-        this.intake_left.setDirection(Direction.FORWARD);
-        // Declare and setup intake_right
-        this.intake_right = OpMode.hardwareMap.crservo.get("intake right");
-        this.intake_right.setDirection(Direction.REVERSE);
-
-        this.intake_button=OpMode.hardwareMap.digitalChannel.get("intake button");
-        this.intake_button.setMode(DigitalChannel.Mode.INPUT);
-
-
-
         // Declare and setup left_front
-        this.status("Configuring left front motor");
-        this.left_front = OpMode.hardwareMap.dcMotor.get("left front");
-        this.left_front.setZeroPowerBehavior(ZeroPowerBehavior.BRAKE);
-        this.left_front.setMode(RunMode.STOP_AND_RESET_ENCODER);
-        this.left_front.setMode(RunMode.RUN_USING_ENCODER);
-        this.left_front.setDirection(Direction.FORWARD);
-
-
         this.status("Configuring left front motor");
         this.left_front = OpMode.hardwareMap.dcMotor.get("left front");
         this.left_front.setZeroPowerBehavior(ZeroPowerBehavior.BRAKE);
@@ -154,6 +132,14 @@ public class Config {
         this.right_back.setMode(RunMode.RUN_USING_ENCODER);
         this.right_back.setDirection(Direction.REVERSE);
 
+
+        // Declare the servo
+        this.servo_0 = OpMode.hardwareMap.servo.get("servo 0");
+        this.servo_0.scaleRange(0,1);
+        this.status("Done!");
+        this.servo_1 = OpMode.hardwareMap.servo.get("servo 1");
+        this.servo_1.scaleRange(0,1);
+        this.status("Done!");
 
         this.status("Setting up imu...");
         final BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();

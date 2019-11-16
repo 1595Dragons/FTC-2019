@@ -28,17 +28,15 @@
  */
 
 package org.firstinspires.ftc.teamcode;
-
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
-import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
-//@Disabled
-@Autonomous(name = "AutoWithVision", group = "Test")
 
-public class AutoWithVision extends LinearOpMode {
+import java.sql.Driver;
+
+@Autonomous(name = "BuildingFoundation", group = "Official")
+//@Disabled
+public class RedBuildingFoundation extends LinearOpMode {
 
 
     //basic set up  code for search: 1001
@@ -46,60 +44,31 @@ public class AutoWithVision extends LinearOpMode {
 
     private Config robot = new Config(this);
 
-    @Override public void runOpMode() {
+    public void runOpMode() {
 
         //basic set up code1001
         robot.ConfigureRobtHardware();
         //robot.ConfigureVision();
         robot.resetMotorsForAutonomous(robot.left_back, robot.left_front, robot.right_back, robot.right_front);
+
         robot.status("ready");
         waitForStart();
 
-        //robot.targetsSkyStone.activate();
-        double visionX=0, visionY=0, visionTurn=0;
-        robot.DriveForward(DRIVE_SPEED,23,2);
-        /*
-        visionY=robot.lookForStoneY(2);
-        if (robot.stoneFind){
-            telemetry.addData("stone","find");
-            telemetry.update();
-            robot.DriveLeft(SIDE_SPEED,visionY,2);
-        }
-        */
-
-        //sleep(1000);
-        robot.DriveForward(DRIVE_SPEED,45,3);
-        robot.DriveForward(DRIVE_SPEED,-5,1);
 
 
+        robot.DriveForward(DRIVE_SPEED,-65,2);
+        robot.DriveForward(DRIVE_SPEED,-27,2);
+        robot.TurnByImu(TURN_SPEED,45*robot.team,1.5);
+        robot.DriveForward(0.7,20,2);
+        robot.DriveForward(DRIVE_SPEED, -5,1.5);
+        robot.TurnByImu(TURN_SPEED,90*robot.team,1.5);
+        robot.DriveForward(DRIVE_SPEED,25,2);
+        robot.TurnByImu(TURN_SPEED,0*robot.team,1.5);
+        robot.DriveForward(DRIVE_SPEED,36,2);
         robot.TurnByImu(TURN_SPEED,-90*robot.team,2);
-        robot.DriveForward(DRIVE_SPEED,60,3);
-
-
-        robot.TurnByImu(TURN_SPEED,-135*robot.team,1.5);
-        robot.DriveForward(0.7,12,2);
-        robot.DriveForward(DRIVE_SPEED, -6,1.5);
-        robot.TurnByImu(TURN_SPEED,-90*robot.team,1.5);
-        robot.DriveForward(DRIVE_SPEED,25,2);
-        robot.TurnByImu(TURN_SPEED,-179*robot.team,1.5);
-        robot.DriveForward(DRIVE_SPEED,40,2);
-        robot.TurnByImu(TURN_SPEED,90*robot.team,2);
-        robot.DriveForward(DRIVE_SPEED,48,3);
-        /*
-        robot.TurnByImu(TURN_SPEED,-170,2);
-        robot.DriveForward(DRIVE_SPEED,30,2);
-        robot.TurnByImu(TURN_SPEED,-170,2);
-        robot.DriveForward(DRIVE_SPEED,25,2);
-        */
-
-
-
-
-        //robot.targetsSkyStone.deactivate();
+        robot.DriveForward(DRIVE_SPEED,52,3);
 
 
     }
 
 }
-
-

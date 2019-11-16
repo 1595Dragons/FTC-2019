@@ -3,10 +3,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name = "Basic TeleOp", group = "Official")
-public class BasicTeleop extends LinearOpMode {
+@TeleOp(name = "TeleOp6128", group = "Official")
+public class TeleOp6128 extends LinearOpMode {
 
-    private Config robot = new Config(this);
+    private Config6128 robot = new Config6128(this);
 
     public void runOpMode() {
 
@@ -36,7 +36,6 @@ public class BasicTeleop extends LinearOpMode {
 
             double driveForward = gamepad2.left_stick_y * speedMove, driveRightSide = gamepad2.left_stick_x * speedSide,
                     turnRight = -gamepad2.right_stick_x * speedTurn;
-            double intakePower=gamepad1.left_trigger-gamepad1.right_trigger;
             //prevent small input from stick
             driveForward = (driveForward >= -0.1 && driveForward <= 0.1) ? 0 : driveForward;
             driveRightSide = (driveRightSide >= -0.1 && driveRightSide <= 0.1) ? 0 : driveRightSide;
@@ -72,26 +71,37 @@ public class BasicTeleop extends LinearOpMode {
                 robot.left_back.setPower(Range.clip((-driveRightSide - driveForward + turnRight), -1.0, 1.0));
                 robot.right_back.setPower(Range.clip((driveRightSide - driveForward - turnRight), -1.0, 1.0));
             }
-            if (robot.intake_button.getState()==false){
-                intakePower=gamepad1.right_trigger;
-            }
-            robot.intake_left.setPower(intakePower);
-            robot.intake_right.setPower(intakePower);
 
 
-            /*
+
             if (gamepad1.a){
-                robot.Servo_A.setPosition(0.5);
+                robot.servo_0.setPosition(1);
+                robot.servo_1.setPosition(0);
             }
             if (gamepad1.b){
-                robot.Servo_A.setPosition(0);
+                robot.servo_0.setPosition(0.5);
+                robot.servo_1.setPosition(0.4);
             }
-            */
+            if (gamepad1.x){
+                robot.servo_0.setPosition(0);
+                robot.servo_1.setPosition(1);
+            }
+            if (gamepad1.y){
+                telemetry.addData("R0 servo",robot.servo_0.getPosition())
+                        .addData("L1 servo",robot.servo_1.getPosition());
+            }
+           // robot.servo_1.setPosition(gamepad1.left_trigger);
+            //robot.servo_0.setPosition(gamepad1.right_trigger);
+
+
+
 
             telemetry.addData("Lf power", robot.left_front.getPower())
                     .addData("Rf power", robot.right_front.getPower())
                     .addData("Lb power", robot.left_back.getPower())
-                    .addData("Rb power", robot.right_back.getPower());
+                    .addData("Rb power", robot.right_back.getPower())
+                    .addData("R0 servo",robot.servo_0.getPosition())
+                    .addData("L1 servo",robot.servo_1.getPosition());
             telemetry.update();
 
         }
