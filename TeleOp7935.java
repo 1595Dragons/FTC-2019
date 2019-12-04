@@ -2,11 +2,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-@TeleOp(name = "Basic TeleOp", group = "Official")
-@Disabled
-public class BasicTeleop extends LinearOpMode {
+@TeleOp(name = "TeleOp7935", group = "Official")
+public class TeleOp7935 extends LinearOpMode {
 
     private Config robot = new Config(this);
 
@@ -15,30 +13,38 @@ public class BasicTeleop extends LinearOpMode {
         // Initialize the robot
         robot.ConfigureRobtHardware();
         //Motor Power
+
         double speedTurn=1,speedMove=1,speedSide=1;
-        double slowTurn = 0.5, slowMove=0.5,slowSide=0.7;
+        double slowTurn = 0.4, slowMove=0.4,slowSide=0.4;//slow mode is the usual speed
         boolean slowMode=false, powerMode=false;
-        double powerUp=1.3;
+        double powerUp=1;
+        double intakePower=0;
+
+
         waitForStart();
 
         while (opModeIsActive()) {
 
             //Power up function
+            /*
             if (gamepad2.left_trigger>0){
-                slowMode=true;
+                slowMode=tr;
             }else{
                 slowMode=false;
             }
-            if (gamepad2.right_trigger>0){
-                powerMode=true;
+            */
+
+            if (gamepad2.right_trigger>0.1){
+
                 slowMode=false;
             }else{
-                powerMode=false;
+                powerMode=true;
             }
 
             double driveForward = gamepad2.left_stick_y * speedMove, driveRightSide = gamepad2.left_stick_x * speedSide,
                     turnRight = -gamepad2.right_stick_x * speedTurn;
-            double intakePower=gamepad1.left_trigger-gamepad1.right_trigger;
+
+            intakePower=gamepad1.left_trigger-gamepad1.right_trigger;//left in right out?
             //prevent small input from stick
             driveForward = (driveForward >= -0.1 && driveForward <= 0.1) ? 0 : driveForward;
             driveRightSide = (driveRightSide >= -0.1 && driveRightSide <= 0.1) ? 0 : driveRightSide;
@@ -63,17 +69,19 @@ public class BasicTeleop extends LinearOpMode {
                 robot.right_front.setPower(Range.clip((driveRightSide*slowSide + driveForward*slowMove - turnRight*slowTurn), -1.0, 1.0));
                 robot.left_back.setPower(Range.clip((driveRightSide*slowSide + driveForward*slowMove + turnRight*slowTurn), -1.0, 1.0));
                 robot.right_back.setPower(Range.clip((-driveRightSide*slowSide + driveForward*slowMove - turnRight*slowTurn), -1.0, 1.0));
-            }else if(!powerMode){
+            }else {//if(!powerMode){
                 robot.left_front.setPower(Range.clip((-driveRightSide + driveForward + turnRight), -1.0, 1.0));
                 robot.right_front.setPower(Range.clip((driveRightSide + driveForward - turnRight), -1.0, 1.0));
                 robot.left_back.setPower(Range.clip((driveRightSide + driveForward + turnRight), -1.0, 1.0));
                 robot.right_back.setPower(Range.clip((-driveRightSide + driveForward - turnRight), -1.0, 1.0));
-            }else{
+            }/*
+            else{
                 robot.left_front.setPower(Range.clip((driveRightSide - driveForward + turnRight), -1.0, 1.0));
                 robot.right_front.setPower(Range.clip((-driveRightSide - driveForward - turnRight), -1.0, 1.0));
                 robot.left_back.setPower(Range.clip((-driveRightSide - driveForward + turnRight), -1.0, 1.0));
                 robot.right_back.setPower(Range.clip((driveRightSide - driveForward - turnRight), -1.0, 1.0));
             }
+            */
             if (robot.intake_button.getState()==false){
                 intakePower=-gamepad1.right_trigger;
             }

@@ -32,9 +32,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name = "Basic", group = "Official")
+@Autonomous(name = "MotorTest7935", group = "Official")
 //@Disabled
-public class BasicAuto extends LinearOpMode {
+public class MotorTest7935 extends LinearOpMode {
 
 
     //basic set up  code for search: 1001
@@ -55,6 +55,7 @@ public class BasicAuto extends LinearOpMode {
         robot.targetsSkyStone.activate();
         double visionX=0, visionY=0, visionTurn=0;
         int tryVision=0;
+
 
 
         robot.targetsSkyStone.deactivate();

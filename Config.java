@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 //import com.disnodeteam.dogecv.CameraViewDisplay;
 //import com.disnodeteam.dogecv.DogeCV;
 //import com.disnodeteam.dogecv.detectors.roverrukus.GoldDetector;
+import android.graphics.Path;
+
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -396,7 +398,7 @@ public class Config {
         distinctDrive(speed,-distance,-distance,-distance,-distance,timeOutS);
     }
     void DriveLeft(double speed,double distance,double timeOutS){
-        distinctDrive(speed,-distance,distance,distance,-distance,timeOutS);
+        distinctDrive(speed,distance,-distance,-distance,distance,timeOutS);
     }
 
 
@@ -424,16 +426,20 @@ public class Config {
                             lastLocation = robotLocationTransform;
                         }
                         stoneFind=true;
+
                         break;
                     }
                 }
             }
+            OpMode.telemetry.addData("stoneFind",stoneFind);
+            OpMode.telemetry.update();
+
             if (stoneFind) {
                 VectorF translation = lastLocation.getTranslation();
                 return (translation.get(1)/mmPerInch);
             }
         }
-        return (0);
+        return (998);//998 means not found
     }
     //I am not sure what is the code below doing
     void status(String string) {

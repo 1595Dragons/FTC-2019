@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.vuforia.Vuforia;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
@@ -41,6 +42,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.robotcore.internal.camera.CameraImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +52,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
+import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
 
 /**
  * This 2019-2020 OpMode illustrates the basics of using the Vuforia localizer to determine
@@ -83,7 +86,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 
 @TeleOp(name="SKYSTONE Vuforia Nav", group ="Official")
-@Disabled
+//@Disabled
 public class ConceptVuforiaSkyStoneNavigation extends LinearOpMode {
 
     // IMPORTANT:  For Phone Camera, set 1) the camera source and 2) the orientation, based on how your phone is mounted:
@@ -92,8 +95,8 @@ public class ConceptVuforiaSkyStoneNavigation extends LinearOpMode {
     //
     // NOTE: If you are running on a CONTROL HUB, with only one USB WebCam, you must select CAMERA_CHOICE = BACK; and PHONE_IS_PORTRAIT = false;
     //
-    private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
-    private static final boolean PHONE_IS_PORTRAIT = false  ;
+    private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE =FRONT;
+    private static final boolean PHONE_IS_PORTRAIT = true  ;
     private static final String VUFORIA_KEY =
             "AY2fMLf/////AAABmTcpSvf6l0P0nO4JSNywZ3gPjoh6efhgyl8JY4mDVIh6eVuG2gGzL5W6EYS7C9/o8GCbSMEChTxOmKEDWKQJLKtnTg5uVfGa99ZxHTk5bhGKOfr5j2/68p3/MCBlBUAz4doer2t9/vh5qZUs48mUKELA0LD8q52rMV5zUFsbEp2x9Rk1Wkt2FhQp1nSFbqqwEFeMOsSLmyfc9MYBA3nLxK2ITuN4Z7pdwmaO2yH7r6cOpA5qPMgLwPEaRC54ESiKHVFcKIUF5DpSMlGaoHMGvoND/PBNxUsapcVrKBKzLgTtagEXsZSODal109yv6DBZgI9vgEUoHHBB9mEJaZMROf/U55avUbg1FvIyBKSYzgzW";
 
@@ -129,11 +132,11 @@ public class ConceptVuforiaSkyStoneNavigation extends LinearOpMode {
          * We can pass Vuforia the handle to a camera preview resource (on the RC phone);
          * If no camera monitor is desired, use the parameter-less constructor instead (commented out below).
          */
-        //int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        int cameraMonitorViewId=2131099685;
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        //int cameraMonitorViewId=2131099685;
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
-        // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+    // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
         parameters.cameraDirection   = CAMERA_CHOICE;

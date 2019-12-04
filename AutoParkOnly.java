@@ -51,8 +51,8 @@ public class AutoParkOnly extends LinearOpMode {
         robot.status("ready");
         waitForStart();
 
-        robot.DriveForward(DRIVE_SPEED, 20,2);
-        robot.TurnByImu(TURN_SPEED,-90*robot.team,2);
+        robot.DriveForward(DRIVE_SPEED, 40,2);
+        //robot.TurnByImu(TURN_SPEED,-90*robot.team,2);
         robot.DriveForward(DRIVE_SPEED,15,2);
 
 

@@ -39,10 +39,11 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 
     public class Config6128 {
-    Servo servo_0,servo_1;
+    Servo servo_0,servo_1,servo_2,servo_3;
 
     BNO055IMU imu;
     DcMotor left_front, right_front, left_back, right_back;
+    DcMotor intake_left,intake_right,lift_right,lift_left;
     Boolean stoneFind;
     int team=-1;//red = 1, blue = -1;
     // A timer object
@@ -132,14 +133,36 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
         this.right_back.setMode(RunMode.RUN_USING_ENCODER);
         this.right_back.setDirection(Direction.REVERSE);
 
+        this.status("Configuring right back motor");
+        this.intake_left = OpMode.hardwareMap.dcMotor.get("intake left");
+        this.intake_left.setZeroPowerBehavior(ZeroPowerBehavior.BRAKE);
+        this.intake_left.setMode(RunMode.RUN_WITHOUT_ENCODER);
+        this.intake_left.setDirection(Direction.FORWARD);
+        this.intake_right = OpMode.hardwareMap.dcMotor.get("intake right");
+        this.intake_right.setZeroPowerBehavior(ZeroPowerBehavior.BRAKE);
+        this.intake_right.setMode(RunMode.RUN_WITHOUT_ENCODER);
+        this.intake_right.setDirection(Direction.FORWARD);
+
+        this.lift_right = OpMode.hardwareMap.dcMotor.get("lift right");
+        this.lift_right.setZeroPowerBehavior(ZeroPowerBehavior.BRAKE);
+        this.lift_right.setMode(RunMode.RUN_WITHOUT_ENCODER);
+        this.lift_right.setDirection(Direction.FORWARD);
+        this.lift_left = OpMode.hardwareMap.dcMotor.get("lift left");
+        this.lift_left.setZeroPowerBehavior(ZeroPowerBehavior.BRAKE);
+        this.lift_left.setMode(RunMode.RUN_WITHOUT_ENCODER);
+        this.lift_left.setDirection(Direction.REVERSE);
+
+
 
         // Declare the servo
-        this.servo_0 = OpMode.hardwareMap.servo.get("servo 0");
+        this.servo_0 = OpMode.hardwareMap.servo.get("servo 0");//pull R
         this.servo_0.scaleRange(0,1);
-        this.status("Done!");
-        this.servo_1 = OpMode.hardwareMap.servo.get("servo 1");
+        this.servo_1 = OpMode.hardwareMap.servo.get("servo 1");//pull L
         this.servo_1.scaleRange(0,1);
-        this.status("Done!");
+        this.servo_2 = OpMode.hardwareMap.servo.get("servo 2");//intake R
+        this.servo_2.scaleRange(0,1);
+        this.servo_3 = OpMode.hardwareMap.servo.get("servo 3");//intake L
+        this.servo_3.scaleRange(0,1);
 
         this.status("Setting up imu...");
         final BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();

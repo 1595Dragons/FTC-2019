@@ -32,13 +32,13 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name = "Basic", group = "Official")
+@Autonomous(name = "PickUpSkyStone", group = "Official")
 //@Disabled
-public class BasicAuto extends LinearOpMode {
+public class AutoPickUpSkyStone extends LinearOpMode {
 
 
     //basic set up  code for search: 1001
-    private static final double DRIVE_SPEED = .5, TURN_SPEED = .5, ARM_SPEED = .8, SIDE_SPEED = .5;
+    private static final double DRIVE_SPEED = .9, TURN_SPEED = .9, ARM_SPEED = .8, SIDE_SPEED = .8;
 
     private Config robot = new Config(this);
 
@@ -55,6 +55,30 @@ public class BasicAuto extends LinearOpMode {
         robot.targetsSkyStone.activate();
         double visionX=0, visionY=0, visionTurn=0;
         int tryVision=0;
+        robot.DriveForward(1,27,3);
+        robot.DriveLeft(SIDE_SPEED,2.5,1);
+        visionY=robot.lookForStoneY(2);
+
+        if (visionY==998){
+            robot.DriveLeft(SIDE_SPEED, -8.5,2);
+            visionY=robot.lookForStoneY(2);
+            if (visionY==998){
+                robot.DriveLeft(SIDE_SPEED, -9,2);
+            }
+        }
+        robot.DriveForward(1,-10,2);
+        sleep(10000);
+
+        robot.intake_left.setPower(1);
+        robot.intake_right.setPower(1);
+        robot.DriveForward(DRIVE_SPEED,25,3);
+        sleep(3000);
+        robot.intake_left.setPower(0);
+        robot.intake_right.setPower(0);
+        robot.DriveForward(0.9,-15,2);
+        robot.TurnByImu(0.9,-90,2);
+        robot.DriveForward(1,50,4);
+
 
 
         robot.targetsSkyStone.deactivate();

@@ -14,15 +14,28 @@ public class TeleOp6128 extends LinearOpMode {
         robot.ConfigureRobtHardware();
         //Motor Power
         double speedTurn=1,speedMove=1,speedSide=1;
-        double slowTurn = 0.5, slowMove=0.5,slowSide=0.7;
+        double slowTurn = 0.3, slowMove=0.3,slowSide=0.3;
         boolean slowMode=false, powerMode=false;
         double powerUp=1.3;
+        //servo position
+        double r0_down=1,l1_down=0,r0_up=0,l1_up=1,r0_middle=0.5,l1_middle=0.4;
+
+        double r2_in=0.48,r2_out=0.65,r2_squ=0.43,l3_in=0.78,l3_out=0.53,l3_squ=0.88;
+
+
+
+
         waitForStart();
 
         while (opModeIsActive()) {
+            //lift test
+            double liftPower=gamepad1.left_stick_y;
+            robot.lift_right.setPower(liftPower);
+            robot.lift_left.setPower(liftPower);
+
 
             //Power up function
-            if (gamepad2.left_trigger>0){
+            if (gamepad2.right_bumper){
                 slowMode=true;
             }else{
                 slowMode=false;
@@ -36,6 +49,7 @@ public class TeleOp6128 extends LinearOpMode {
 
             double driveForward = gamepad2.left_stick_y * speedMove, driveRightSide = gamepad2.left_stick_x * speedSide,
                     turnRight = -gamepad2.right_stick_x * speedTurn;
+            double intakePower=gamepad1.left_trigger-gamepad1.right_trigger;
             //prevent small input from stick
             driveForward = (driveForward >= -0.1 && driveForward <= 0.1) ? 0 : driveForward;
             driveRightSide = (driveRightSide >= -0.1 && driveRightSide <= 0.1) ? 0 : driveRightSide;
@@ -71,37 +85,46 @@ public class TeleOp6128 extends LinearOpMode {
                 robot.left_back.setPower(Range.clip((-driveRightSide - driveForward + turnRight), -1.0, 1.0));
                 robot.right_back.setPower(Range.clip((driveRightSide - driveForward - turnRight), -1.0, 1.0));
             }
+            robot.intake_left.setPower(intakePower);
+            robot.intake_right.setPower(intakePower);
 
 
 
-            if (gamepad1.a){
-                robot.servo_0.setPosition(1);
-                robot.servo_1.setPosition(0);
-            }
-            if (gamepad1.b){
-                robot.servo_0.setPosition(0.5);
-                robot.servo_1.setPosition(0.4);
-            }
+
             if (gamepad1.x){
-                robot.servo_0.setPosition(0);
-                robot.servo_1.setPosition(1);
+                robot.servo_2.setPosition(r2_squ);
+                robot.servo_3.setPosition(l3_squ);
             }
+            /*
+            if (gamepad1.left_trigger>0){
+                robot.servo_2.setPosition(r2_in);
+                robot.servo_3.setPosition(l3_in);
+            }
+            */
             if (gamepad1.y){
-                telemetry.addData("R0 servo",robot.servo_0.getPosition())
-                        .addData("L1 servo",robot.servo_1.getPosition());
+                robot.servo_2.setPosition(r2_out);
+                robot.servo_3.setPosition(l3_out);
             }
-           // robot.servo_1.setPosition(gamepad1.left_trigger);
-            //robot.servo_0.setPosition(gamepad1.right_trigger);
+            if (gamepad1.a){
+                robot.servo_2.setPosition(r2_in);
+                robot.servo_3.setPosition(l3_in);
+            }
+            //robot.servo_2.setPosition(gamepad1.left_trigger);
+            //robot.servo_3.setPosition(gamepad1.right_trigger);
 
 
-
-
+            telemetry.addData("lift_right power",robot.lift_right.getPower())
+                    .addData("lift_left power",robot.lift_left.getPower())
+                    .addData("intake power",intakePower)
+                    .addData("intake_right",robot.intake_right.getPower())
+                    .addData("intake_left",robot.intake_left.getPower());
             telemetry.addData("Lf power", robot.left_front.getPower())
                     .addData("Rf power", robot.right_front.getPower())
                     .addData("Lb power", robot.left_back.getPower())
-                    .addData("Rb power", robot.right_back.getPower())
-                    .addData("R0 servo",robot.servo_0.getPosition())
-                    .addData("L1 servo",robot.servo_1.getPosition());
+                    .addData("Rb power", robot.right_back.getPower());
+
+            telemetry.addData("R2 servo",robot.servo_2.getPosition())
+                    .addData("L3 servo",robot.servo_3.getPosition());
             telemetry.update();
 
         }
