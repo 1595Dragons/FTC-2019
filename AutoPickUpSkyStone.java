@@ -38,7 +38,7 @@ public class AutoPickUpSkyStone extends LinearOpMode {
 
 
     //basic set up  code for search: 1001
-    private static final double DRIVE_SPEED = .9, TURN_SPEED = .9, ARM_SPEED = .8, SIDE_SPEED = .8;
+    private static final double DRIVE_SPEED = .5, TURN_SPEED = .5, ARM_SPEED = .8, SIDE_SPEED = .5;
 
     private Config robot = new Config(this);
 

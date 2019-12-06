@@ -35,10 +35,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 @Autonomous(name = "ParkOnly", group = "Official")
 //@Disabled
 public class AutoParkOnly extends LinearOpMode {
+    //start position B1, park outside along the wall
 
 
     //basic set up  code for search: 1001
-    private static final double DRIVE_SPEED = .9, TURN_SPEED = .9, ARM_SPEED = .8, SIDE_SPEED = .3;
+    private static final double DRIVE_SPEED = .5, TURN_SPEED = .4, SIDE_SPEED = .3;
 
     private Config robot = new Config(this);
 
@@ -51,9 +52,14 @@ public class AutoParkOnly extends LinearOpMode {
         robot.status("ready");
         waitForStart();
 
-        robot.DriveForward(DRIVE_SPEED, 40,2);
-        //robot.TurnByImu(TURN_SPEED,-90*robot.team,2);
-        robot.DriveForward(DRIVE_SPEED,15,2);
+        robot.DriveForward(DRIVE_SPEED, 5,2);
+        sleep(1000);
+        robot.TurnByImu(TURN_SPEED,90*robot.team,2);
+        sleep(1000);
+        robot.DriveForward(DRIVE_SPEED,28,2);
+        sleep(1000);
+        robot.DriveLeft(SIDE_SPEED,7*robot.team,2);
+        sleep(1000);
 
 
 

@@ -37,8 +37,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 public class TurnByImu extends LinearOpMode {
 
 
-    //basic set up  code for search: 1001
-    private static final double DRIVE_SPEED = .25, TURN_SPEED = .9, ARM_SPEED = .8, SIDE_SPEED = .3;
+
+    private static final double DRIVE_SPEED = .25, TURN_SPEED = .4, ARM_SPEED = .8, SIDE_SPEED = .3;
 
     private Config robot = new Config(this);
 
@@ -51,6 +51,8 @@ public class TurnByImu extends LinearOpMode {
         robot.status("wait for start");
         waitForStart();
 
+
+        //counter-clockwise is positive
         while (opModeIsActive()){
             if(gamepad1.a){
                 robot.TurnByImu(TURN_SPEED,0,3);

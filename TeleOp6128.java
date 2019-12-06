@@ -17,7 +17,7 @@ public class TeleOp6128 extends LinearOpMode {
         double slowTurn = 0.3, slowMove=0.3,slowSide=0.3;
         boolean slowMode=false, powerMode=false;
         double powerUp=1.3;
-        //servo position
+        //servo position/
         double r0_down=1,l1_down=0,r0_up=0,l1_up=1,r0_middle=0.5,l1_middle=0.4;
 
         double r2_in=0.48,r2_out=0.65,r2_squ=0.43,l3_in=0.78,l3_out=0.53,l3_squ=0.88;
@@ -30,6 +30,10 @@ public class TeleOp6128 extends LinearOpMode {
         while (opModeIsActive()) {
             //lift test
             double liftPower=gamepad1.left_stick_y;
+            if (gamepad1.left_stick_button){
+                liftPower=liftPower*0.4;
+            }
+
             robot.lift_right.setPower(liftPower);
             robot.lift_left.setPower(liftPower);
 
@@ -80,34 +84,39 @@ public class TeleOp6128 extends LinearOpMode {
                 robot.left_back.setPower(Range.clip((driveRightSide + driveForward + turnRight), -1.0, 1.0));
                 robot.right_back.setPower(Range.clip((-driveRightSide + driveForward - turnRight), -1.0, 1.0));
             }else{
-                robot.left_front.setPower(Range.clip((driveRightSide - driveForward + turnRight), -1.0, 1.0));
-                robot.right_front.setPower(Range.clip((-driveRightSide - driveForward - turnRight), -1.0, 1.0));
-                robot.left_back.setPower(Range.clip((-driveRightSide - driveForward + turnRight), -1.0, 1.0));
-                robot.right_back.setPower(Range.clip((driveRightSide - driveForward - turnRight), -1.0, 1.0));
+                robot.left_front.setPower(Range.clip((-driveRightSide + driveForward + turnRight), -1.0, 1.0));
+                robot.right_front.setPower(Range.clip((driveRightSide + driveForward - turnRight), -1.0, 1.0));
+                robot.left_back.setPower(Range.clip((driveRightSide + driveForward + turnRight), -1.0, 1.0));
+                robot.right_back.setPower(Range.clip((-driveRightSide + driveForward - turnRight), -1.0, 1.0));
             }
+
+
             robot.intake_left.setPower(intakePower);
             robot.intake_right.setPower(intakePower);
-
-
-
-
-            if (gamepad1.x){
+            if (gamepad1.left_bumper){
                 robot.servo_2.setPosition(r2_squ);
                 robot.servo_3.setPosition(l3_squ);
             }
-            /*
-            if (gamepad1.left_trigger>0){
+
+            if (gamepad1.right_trigger>0){
                 robot.servo_2.setPosition(r2_in);
                 robot.servo_3.setPosition(l3_in);
             }
-            */
-            if (gamepad1.y){
+            if (gamepad1.right_bumper){
                 robot.servo_2.setPosition(r2_out);
                 robot.servo_3.setPosition(l3_out);
             }
             if (gamepad1.a){
-                robot.servo_2.setPosition(r2_in);
-                robot.servo_3.setPosition(l3_in);
+                robot.servo_0.setPosition(r0_down);
+                robot.servo_1.setPosition(l1_down);
+            }
+            if (gamepad1.b){
+                robot.servo_0.setPosition(r0_middle);
+                robot.servo_1.setPosition(l1_middle);
+            }
+            if(gamepad1.x){
+                robot.servo_0.setPosition(r0_up);
+                robot.servo_1.setPosition(l1_up);
             }
             //robot.servo_2.setPosition(gamepad1.left_trigger);
             //robot.servo_3.setPosition(gamepad1.right_trigger);

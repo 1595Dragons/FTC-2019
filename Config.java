@@ -42,18 +42,19 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 
 public class Config {
-    CRServo intake_right,intake_left;
+    CRServo intake_right,intake_left,lift;
 
     DigitalChannel intake_button;
     BNO055IMU imu;
     DcMotor left_front, right_front, left_back, right_back;
+
     Boolean stoneFind;
-    int team=-1;//red = 1, blue = -1;
+    int team=1;//red = 1, blue = -1;
     // A timer object
     private ElapsedTime timer = new ElapsedTime();
 
     //distance modifiers
-    private final int EncoderNumberChangePerInch = 118;
+    private final int EncoderNumberChangePerInch = 47;
 
 
     // Get the important bits from the opMode
@@ -110,6 +111,9 @@ public class Config {
         // Declare and setup intake_right
         this.intake_right = OpMode.hardwareMap.crservo.get("intake right");
         this.intake_right.setDirection(Direction.REVERSE);
+
+        this.lift=OpMode.hardwareMap.crservo.get("lift");
+        this.lift.setDirection(Direction.FORWARD);
 
         this.intake_button=OpMode.hardwareMap.digitalChannel.get("intake button");
         this.intake_button.setMode(DigitalChannel.Mode.INPUT);
@@ -404,7 +408,7 @@ public class Config {
 
     void TurnByImu(double speed, int target, double timeOut) {
         double error = this.getError(target);
-        double magicNumber = 0.184;//over shoot a tiny bit when =0.19
+        double magicNumber = 0.151;//over shoot a tiny bit when =0.19
         distinctDrive(speed, error * magicNumber,error * magicNumber, -error * magicNumber,-error * magicNumber, timeOut);
         this.OpMode.telemetry.addData("error", error);
         this.OpMode.telemetry.addData("leftmove", -error*magicNumber);
