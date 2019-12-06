@@ -65,30 +65,44 @@ public class TeleOp7935 extends LinearOpMode {
             }
 
             // Send calculated power to wheels
-            if (slowMode){
-                robot.left_front.setPower(Range.clip((-driveRightSide*slowSide + driveForward*slowMove + turnRight*slowTurn), -1.0, 1.0));
-                robot.right_front.setPower(Range.clip((driveRightSide*slowSide + driveForward*slowMove - turnRight*slowTurn), -1.0, 1.0));
-                robot.left_back.setPower(Range.clip((driveRightSide*slowSide + driveForward*slowMove + turnRight*slowTurn), -1.0, 1.0));
-                robot.right_back.setPower(Range.clip((-driveRightSide*slowSide + driveForward*slowMove - turnRight*slowTurn), -1.0, 1.0));
-            }else {
-                if (!powerMode) {
-                    robot.left_front.setPower(Range.clip((-driveRightSide + driveForward + turnRight), -1.0, 1.0));
-                    robot.right_front.setPower(Range.clip((driveRightSide + driveForward - turnRight), -1.0, 1.0));
-                    robot.left_back.setPower(Range.clip((driveRightSide + driveForward + turnRight), -1.0, 1.0));
-                    robot.right_back.setPower(Range.clip((-driveRightSide + driveForward - turnRight), -1.0, 1.0));
-                } else {
-                    robot.left_front.setPower(Range.clip((-driveRightSide * powerSide + driveForward * powerMove + turnRight * powerTurn), -1.0, 1.0));
-                    robot.right_front.setPower(Range.clip((driveRightSide * powerSide + driveForward * powerMove - turnRight * powerTurn), -1.0, 1.0));
-                    robot.left_back.setPower(Range.clip((driveRightSide * powerSide + driveForward * powerMove + turnRight * powerTurn), -1.0, 1.0));
-                    robot.right_back.setPower(Range.clip((-driveRightSide * powerSide + driveForward * powerMove - turnRight * powerTurn), -1.0, 1.0));
-                }
+            if (gamepad2.a){
+                double aPowerOut=-0.4;
+                robot.intake_left.setPower(aPowerOut);
+                robot.intake_right.setPower(aPowerOut);
+                double aPowerBack=-0.15;
+                robot.left_front.setPower(aPowerBack);
+                robot.left_back.setPower(aPowerBack);
+                robot.right_front.setPower(aPowerBack);
+                robot.right_back.setPower(aPowerBack);
             }
+            else {
+                if (slowMode){
+                    robot.left_front.setPower(Range.clip((-driveRightSide*slowSide + driveForward*slowMove + turnRight*slowTurn), -1.0, 1.0));
+                    robot.right_front.setPower(Range.clip((driveRightSide*slowSide + driveForward*slowMove - turnRight*slowTurn), -1.0, 1.0));
+                    robot.left_back.setPower(Range.clip((driveRightSide*slowSide + driveForward*slowMove + turnRight*slowTurn), -1.0, 1.0));
+                    robot.right_back.setPower(Range.clip((-driveRightSide*slowSide + driveForward*slowMove - turnRight*slowTurn), -1.0, 1.0));
+                }else {
+                    if (!powerMode) {
+                        robot.left_front.setPower(Range.clip((-driveRightSide + driveForward + turnRight), -1.0, 1.0));
+                        robot.right_front.setPower(Range.clip((driveRightSide + driveForward - turnRight), -1.0, 1.0));
+                        robot.left_back.setPower(Range.clip((driveRightSide + driveForward + turnRight), -1.0, 1.0));
+                        robot.right_back.setPower(Range.clip((-driveRightSide + driveForward - turnRight), -1.0, 1.0));
+                    } else {
+                        robot.left_front.setPower(Range.clip((-driveRightSide * powerSide + driveForward * powerMove + turnRight * powerTurn), -1.0, 1.0));
+                        robot.right_front.setPower(Range.clip((driveRightSide * powerSide + driveForward * powerMove - turnRight * powerTurn), -1.0, 1.0));
+                        robot.left_back.setPower(Range.clip((driveRightSide * powerSide + driveForward * powerMove + turnRight * powerTurn), -1.0, 1.0));
+                        robot.right_back.setPower(Range.clip((-driveRightSide * powerSide + driveForward * powerMove - turnRight * powerTurn), -1.0, 1.0));
+                    }
+                }
+                robot.intake_left.setPower(intakePower);
+                robot.intake_right.setPower(intakePower);
+            }
+            /*
             if (robot.intake_button.getState()==false){
                 intakePower=-gamepad1.right_trigger;
-            }
+            }*/
 
-            robot.intake_left.setPower(intakePower);
-            robot.intake_right.setPower(intakePower);
+
 
             robot.lift.setPower(gamepad1.left_stick_y*liftPower);
             /*
