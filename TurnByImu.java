@@ -40,7 +40,7 @@ public class TurnByImu extends LinearOpMode {
 
     private static final double DRIVE_SPEED = .25, TURN_SPEED = .4, ARM_SPEED = .8, SIDE_SPEED = .3;
 
-    private Config robot = new Config(this);
+    private Config7935 robot = new Config7935(this);
 
     public void runOpMode() {
 

@@ -40,7 +40,7 @@ public class BasicAuto extends LinearOpMode {
     //basic set up  code for search: 1001
     private static final double DRIVE_SPEED = .5, TURN_SPEED = .5, ARM_SPEED = .8, SIDE_SPEED = .5;
 
-    private Config robot = new Config(this);
+    private Config7935 robot = new Config7935(this);
 
     public void runOpMode() {
 

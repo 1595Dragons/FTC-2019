@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 @Disabled
 public class BasicTeleop extends LinearOpMode {
 
-    private Config robot = new Config(this);
+    private Config7935 robot = new Config7935(this);
 
     public void runOpMode() {
 

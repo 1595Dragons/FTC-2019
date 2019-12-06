@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.util.Range;
 @TeleOp(name = "TeleOp7935", group = "Official")
 public class TeleOp7935 extends LinearOpMode {
 
-    private Config robot = new Config(this);
+    private Config7935 robot = new Config7935(this);
 
     public void runOpMode() {
 

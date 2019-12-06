@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.Range;
 @TeleOp(name = "MotorTest", group = "Official")
 public class MotorTest extends LinearOpMode {
 
-    private Config robot = new Config(this);
+    private Config7935 robot = new Config7935(this);
 
     public void runOpMode() {
 

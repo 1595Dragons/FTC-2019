@@ -41,7 +41,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
 
 
-public class Config {
+public class Config7935 {
     CRServo intake_right,intake_left,lift;
 
     DigitalChannel intake_button;
@@ -50,6 +50,7 @@ public class Config {
 
     Boolean stoneFind;
     int team=1;//red = 1, blue = -1;
+
     // A timer object
     private ElapsedTime timer = new ElapsedTime();
 
@@ -60,7 +61,7 @@ public class Config {
     // Get the important bits from the opMode
     private LinearOpMode OpMode;
 
-    Config(LinearOpMode OpMode) {
+    Config7935(LinearOpMode OpMode) {
         this.OpMode = OpMode;
     }
 
