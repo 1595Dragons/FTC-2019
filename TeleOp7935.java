@@ -15,7 +15,7 @@ public class TeleOp7935 extends LinearOpMode {
         //Motor Power
 
         double speedTurn=0.7,speedMove=0.7,speedSide=0.7;
-        double slowTurn = 0.5, slowMove=0.5,slowSide=0.5;//multiply with normal speed
+        double slowTurn = 0.4, slowMove=0.4,slowSide=0.4;//multiply with normal speed
         double powerTurn=1.43,powerMove=1.43,powerSide=1.43;
         boolean slowMode=false, powerMode=false;
         double intakePower=0,liftPower=0.6;
@@ -65,8 +65,17 @@ public class TeleOp7935 extends LinearOpMode {
             }
 
             // Send calculated power to wheels
-            if (gamepad2.a){
-                double aPowerOut=-0.4;
+            if (gamepad2.b){
+                double bPowerOut=-0.4;
+                robot.intake_left.setPower(bPowerOut);
+                robot.intake_right.setPower(bPowerOut);
+                double bPowerBack=0.15;
+                robot.left_front.setPower(bPowerBack);
+                robot.left_back.setPower(bPowerBack);
+                robot.right_front.setPower(bPowerBack);
+                robot.right_back.setPower(bPowerBack);
+            }else if(gamepad2.a){
+                double aPowerOut=0.4;
                 robot.intake_left.setPower(aPowerOut);
                 robot.intake_right.setPower(aPowerOut);
                 double aPowerBack=-0.15;
@@ -104,7 +113,13 @@ public class TeleOp7935 extends LinearOpMode {
 
 
 
-            robot.lift.setPower(gamepad1.left_stick_y*liftPower);
+
+            if (robot.lift_sensor.getState()==true){
+                robot.lift.setPower(gamepad1.left_stick_y*liftPower);
+            }else if (gamepad1.left_stick_y<-0.1){//up is negative for the stick y
+                robot.lift.setPower(gamepad1.left_stick_y*liftPower);
+            }
+
             /*
             if (gamepad1.a){
                 robot.Servo_A.setPosition(0.5);
@@ -118,7 +133,9 @@ public class TeleOp7935 extends LinearOpMode {
                     .addData("Rf power", robot.right_front.getPower())
                     .addData("Lb power", robot.left_back.getPower())
                     .addData("Rb power", robot.right_back.getPower());
-            telemetry.addData("button",robot.intake_button.getState());
+            telemetry.addData("button",robot.intake_button.getState())
+                    .addData("left stick y",gamepad1.left_stick_y)
+                    .addData("sensor",robot.lift_sensor.getState());
             telemetry.update();
 
         }

@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name = "PickUpSkyStone", group = "Official")
 //@Disabled
@@ -38,8 +39,8 @@ public class AutoPickUpSkyStone extends LinearOpMode {
 
 
     //basic set up  code for search: 1001
-    private static final double DRIVE_SPEED = .5, TURN_SPEED = .5, ARM_SPEED = .8, SIDE_SPEED = .5;
-
+    private static final double DRIVE_SPEED = .5, TURN_SPEED = .5, ARM_SPEED = .8, SIDE_SPEED = .4;
+    private ElapsedTime runtime = new ElapsedTime();
     private Config7935 robot = new Config7935(this);
 
     public void runOpMode() {
@@ -54,30 +55,87 @@ public class AutoPickUpSkyStone extends LinearOpMode {
 
         robot.targetsSkyStone.activate();
         double visionX=0, visionY=0, visionTurn=0;
-        int tryVision=0;
-        robot.DriveForward(1,27,3);
-        robot.DriveLeft(SIDE_SPEED,2.5,1);
-        visionY=robot.lookForStoneY(2);
-
+        int skystonePosition=1;
+        robot.DriveForward(DRIVE_SPEED,29,2);
+        visionY=robot.lookForStoneY(1);
         if (visionY==998){
-            robot.DriveLeft(SIDE_SPEED, -8.5,2);
-            visionY=robot.lookForStoneY(2);
+            robot.DriveLeft(SIDE_SPEED,10*robot.team,1);
+            skystonePosition=0;
+            robot.TurnByImu(TURN_SPEED,0,0.5);
+            visionY=robot.lookForStoneY(1);
             if (visionY==998){
-                robot.DriveLeft(SIDE_SPEED, -9,2);
+                robot.DriveLeft(SIDE_SPEED, -45*robot.team,1);
+                skystonePosition=2;
+                robot.TurnByImu(TURN_SPEED,0,0.5);
             }
         }
-        robot.DriveForward(1,-10,2);
-        sleep(10000);
+
+        //found stone or pick up the last one
+        runtime.reset();
+        robot.lift.setPower(-0.4);//negative is up
+        robot.DriveForward(DRIVE_SPEED,-10,1);
+        while (opModeIsActive() && (runtime.seconds() < 0.3)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+        while(robot.lift_sensor.getState()==true){
+            robot.lift.setPower(0.5);
+        }
+        robot.lift.setPower(0);
 
         robot.intake_left.setPower(1);
         robot.intake_right.setPower(1);
         robot.DriveForward(DRIVE_SPEED,25,3);
-        sleep(3000);
         robot.intake_left.setPower(0);
         robot.intake_right.setPower(0);
-        robot.DriveForward(0.9,-15,2);
-        robot.TurnByImu(0.9,-90,2);
-        robot.DriveForward(1,50,4);
+        robot.DriveForward(DRIVE_SPEED,-15,2);
+
+        //turn and go accross bridge
+        robot.TurnByImu(DRIVE_SPEED,-90*robot.team,1.5);
+        //robot.DriveForward(DRIVE_SPEED,45,3);
+        //robot.TurnByImu(DRIVE_SPEED,-90*robot.team,0.5);
+        robot.DriveForward(DRIVE_SPEED,90-skystonePosition*7,5);
+        runtime.reset();
+        robot.lift.setPower(-0.9);
+        while (opModeIsActive() && (runtime.seconds() < 0.2)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+        robot.lift.setPower(0);
+        robot.TurnByImu(TURN_SPEED,0,2);
+
+        robot.DriveForward(DRIVE_SPEED,13,1);
+        robot.intake_left.setPower(-0.7);
+        robot.intake_right.setPower(-0.7);
+        while(robot.lift_sensor.getState()==true){
+            robot.lift.setPower(0.8);
+        }
+        robot.lift.setPower(0);
+        robot.intake_left.setPower(0);
+        robot.intake_right.setPower(0);
+        robot.DriveForward(DRIVE_SPEED,-40,4);
+        robot.lift.setPower(-0.8);
+
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 0.5)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 0.5)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+        robot.lift.setPower(0);
+
+        robot.TurnByImu(TURN_SPEED,90*robot.team,1);
+        while(robot.lift_sensor.getState()==true){
+            robot.lift.setPower(1);
+        }
+        robot.lift.setPower(0);
+        robot.DriveForward(DRIVE_SPEED,50,3);
+
 
 
 

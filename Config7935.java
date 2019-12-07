@@ -44,7 +44,8 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 public class Config7935 {
     CRServo intake_right,intake_left,lift;
 
-    DigitalChannel intake_button;
+    DigitalChannel intake_button,lift_sensor;
+
     BNO055IMU imu;
     DcMotor left_front, right_front, left_back, right_back;
 
@@ -118,6 +119,10 @@ public class Config7935 {
 
         this.intake_button=OpMode.hardwareMap.digitalChannel.get("intake button");
         this.intake_button.setMode(DigitalChannel.Mode.INPUT);
+
+
+        this.lift_sensor = OpMode.hardwareMap.get(DigitalChannel.class, "lift sensor");
+        this.lift_sensor.setMode(DigitalChannel.Mode.INPUT);
 
 
 

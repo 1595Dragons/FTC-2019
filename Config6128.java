@@ -40,17 +40,20 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
     public class Config6128 {
     Servo servo_0,servo_1,servo_2,servo_3;
-
+    double r0_down=1,l1_down=0,r0_up=0,l1_up=1,r0_middle=0.5,l1_middle=0.4;
+    double r2_in=0.48,r2_out=0.65,r2_squ=0.43,l3_in=0.78,l3_out=0.53,l3_squ=0.88;
     BNO055IMU imu;
     DcMotor left_front, right_front, left_back, right_back;
     DcMotor intake_left,intake_right,lift_right,lift_left;
     Boolean stoneFind;
-    int team=-1;//red = 1, blue = -1;
+
+
+    int team=1;//red = 1, blue = -1;
     // A timer object
     private ElapsedTime timer = new ElapsedTime();
 
     //distance modifiers
-    private final int EncoderNumberChangePerInch = 38;
+    private final double EncoderNumberChangePerInch = 26.5;
 
 
     // Get the important bits from the opMode
@@ -411,7 +414,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
     void TurnByImu(double speed, int target, double timeOut) {
         double error = this.getError(target);
-        double magicNumber = 0.184;//over shoot a tiny bit when =0.19
+        double magicNumber = 0.23;//over shoot a tiny bit when =0.19
         distinctDrive(speed, error * magicNumber,error * magicNumber, -error * magicNumber,-error * magicNumber, timeOut);
         this.OpMode.telemetry.addData("error", error);
         this.OpMode.telemetry.addData("leftmove", -error*magicNumber);
