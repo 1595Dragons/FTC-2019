@@ -50,7 +50,7 @@ public class Config7935 {
     DcMotor left_front, right_front, left_back, right_back;
 
     Boolean stoneFind;
-    int team=1;//red = 1, blue = -1;
+    int team=-1;//red = 1, blue = -1;
 
     // A timer object
     private ElapsedTime timer = new ElapsedTime();

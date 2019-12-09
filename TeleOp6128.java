@@ -15,6 +15,7 @@ public class TeleOp6128 extends LinearOpMode {
         //Motor Power
         double speedTurn=1,speedMove=1,speedSide=1;
         double slowTurn = 0.3, slowMove=0.3,slowSide=0.3;
+        double regTurn = 0.6, regMove=0.6,regSide=1;
         boolean slowMode=false, powerMode=false;
         double powerUp=1.3;
         //servo position/
@@ -76,10 +77,10 @@ public class TeleOp6128 extends LinearOpMode {
                 robot.left_back.setPower(Range.clip((driveRightSide*slowSide + driveForward*slowMove + turnRight*slowTurn), -1.0, 1.0));
                 robot.right_back.setPower(Range.clip((-driveRightSide*slowSide + driveForward*slowMove - turnRight*slowTurn), -1.0, 1.0));
             }else if(!powerMode){
-                robot.left_front.setPower(Range.clip((-driveRightSide + driveForward + turnRight), -1.0, 1.0));
-                robot.right_front.setPower(Range.clip((driveRightSide + driveForward - turnRight), -1.0, 1.0));
-                robot.left_back.setPower(Range.clip((driveRightSide + driveForward + turnRight), -1.0, 1.0));
-                robot.right_back.setPower(Range.clip((-driveRightSide + driveForward - turnRight), -1.0, 1.0));
+                robot.left_front.setPower(Range.clip((-driveRightSide*regSide + driveForward*regMove + turnRight*regTurn), -1.0, 1.0));
+                robot.right_front.setPower(Range.clip((driveRightSide*regSide + driveForward*regMove - turnRight*regTurn), -1.0, 1.0));
+                robot.left_back.setPower(Range.clip((driveRightSide*regSide + driveForward*regMove + turnRight*regTurn), -1.0, 1.0));
+                robot.right_back.setPower(Range.clip((-driveRightSide*regSide + driveForward*regMove - turnRight*regTurn), -1.0, 1.0));
             }else{
                 robot.left_front.setPower(Range.clip((-driveRightSide + driveForward + turnRight), -1.0, 1.0));
                 robot.right_front.setPower(Range.clip((driveRightSide + driveForward - turnRight), -1.0, 1.0));

@@ -33,9 +33,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "PickUpSkyStone", group = "Official")
+@Autonomous(name = "PutStoneStraight7935", group = "Official")
 //@Disabled
-public class AutoPickUpSkyStone extends LinearOpMode {
+public class PutStoneStraight7935 extends LinearOpMode {
 
 
     //basic set up  code for search: 1001
@@ -94,7 +94,7 @@ public class AutoPickUpSkyStone extends LinearOpMode {
         robot.TurnByImu(DRIVE_SPEED,-90*robot.team,1.5);
         //robot.DriveForward(DRIVE_SPEED,45,3);
         //robot.TurnByImu(DRIVE_SPEED,-90*robot.team,0.5);
-        robot.DriveForward(DRIVE_SPEED,90-skystonePosition*7,5);
+        robot.DriveForward(DRIVE_SPEED,80-skystonePosition*7,5);
         runtime.reset();
         robot.lift.setPower(-0.9);
         while (opModeIsActive() && (runtime.seconds() < 0.4)) {
@@ -111,41 +111,20 @@ public class AutoPickUpSkyStone extends LinearOpMode {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-        /*
-        while(robot.lift_sensor.getState()==true){
-            robot.lift.setPower(0.8);
-        }
-        robot.lift.setPower(0);
-        */
+
 
         robot.intake_left.setPower(0);
         robot.intake_right.setPower(0);
-        robot.DriveForward(DRIVE_SPEED,-40,4);
-        /*
-        robot.lift.setPower(-0.8);
-
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.5)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
+        robot.DriveForward(DRIVE_SPEED,-10,4);
 
 
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.5)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-        robot.lift.setPower(0);
-
-         */
 
         robot.TurnByImu(TURN_SPEED,90*robot.team,1);
         while(robot.lift_sensor.getState()==true){
             robot.lift.setPower(1);
         }
         robot.lift.setPower(0);
-        robot.DriveForward(DRIVE_SPEED,55,3);
+        robot.DriveForward(DRIVE_SPEED,45,3);
 
 
 
