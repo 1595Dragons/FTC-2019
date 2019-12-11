@@ -127,11 +127,6 @@ public class AutoStoneOnly extends LinearOpMode {
         robot.DriveForward(DRIVE_SPEED,45,3);
 
 
-
-
         robot.targetsSkyStone.deactivate();
-
-
     }
-
 }

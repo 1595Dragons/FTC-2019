@@ -64,8 +64,6 @@ public class Config7935 {
         this.OpMode = OpMode;
     }
 
-
-
     //vision part
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = FRONT;
     private static final boolean PHONE_IS_PORTRAIT = true;
@@ -98,11 +96,8 @@ public class Config7935 {
     private float phoneYRotate    = 180;
     private float phoneZRotate    = 0;
 
-
     VuforiaTrackables targetsSkyStone;
     List<VuforiaTrackable> allTrackables;
-
-
 
     void ConfigureRobtHardware() {
         // Declare and setup intake_left
