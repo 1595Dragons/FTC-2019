@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotor.RunMode;
 import com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior;
 import com.qualcomm.robotcore.hardware.DcMotorSimple.Direction;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -43,7 +44,7 @@ public class Config7935 {
     CRServo intake_right,intake_left,lift;
 
     DigitalChannel intake_button,lift_sensor;
-
+    DistanceSensor distance_sensor;
     BNO055IMU imu;
     DcMotor left_front, right_front, left_back, right_back;
 
@@ -55,7 +56,6 @@ public class Config7935 {
 
     //distance modifiers
     private final int EncoderNumberChangePerInch = 47;
-
 
     // Get the important bits from the opMode
     private LinearOpMode OpMode;
@@ -116,6 +116,8 @@ public class Config7935 {
 
         this.lift_sensor = OpMode.hardwareMap.get(DigitalChannel.class, "lift sensor");
         this.lift_sensor.setMode(DigitalChannel.Mode.INPUT);
+
+        this.distance_sensor = OpMode.hardwareMap.get(DistanceSensor.class, "distance sensor");
 
 
 
@@ -397,6 +399,46 @@ public class Config7935 {
         // Stop all motion, and reset the motors
         this.resetMotorsForAutonomous(this.left_back, this.left_front, this.right_back, this.right_front);
     }
+
+    void distinctDrivePlus(double speed, double LFInches, double LBInches, double RFInches, double RBInches, double timeoutS, double liftPower, double  liftTime) {
+
+        // Reset the motor encoders, and set them to RUN_TO_POSITION
+        this.resetMotorsForAutonomous(this.left_front, this.left_back, this.right_front, this.right_back);
+
+        // Set the individual drive motor positions
+        this.left_front.setTargetPosition((int) Math.round(LFInches * EncoderNumberChangePerInch));
+        this.right_front.setTargetPosition((int) Math.round(RFInches * EncoderNumberChangePerInch));
+        this.left_back.setTargetPosition((int) Math.round(LBInches * EncoderNumberChangePerInch));
+        this.right_back.setTargetPosition((int) Math.round(RBInches * EncoderNumberChangePerInch));
+
+        // Set the motor speeds
+        this.left_front.setPower(speed);
+        this.right_front.setPower(speed);
+        this.left_back.setPower(speed);
+        this.right_back.setPower(speed);
+
+        this.lift.setPower(liftPower);
+        // Reset the runtime
+        this.timer.reset();
+        while (OpMode.opModeIsActive() && ((this.timer.seconds() < timeoutS)||this.timer.seconds() < liftTime)){
+
+            // Check if the target has been reached
+            if (this.isThere(4, this.left_back, this.left_front, this.right_back, this.right_front)||this.timer.seconds() > timeoutS) {
+                // Stop all motion, and reset the motors
+                this.resetMotorsForAutonomous(this.left_back, this.left_front, this.right_back, this.right_front);
+            }
+            if (liftPower<0) {
+                if (lift_sensor.getState() == false) {
+                    lift.setPower(0);
+                }
+            }else{
+                if (this.timer.seconds() > liftTime){
+                    lift.setPower(0);
+                }
+            }
+        }
+    }
+
     void DriveForward(double speed,double distance,double timeOutS){
         distinctDrive(speed,-distance,-distance,-distance,-distance,timeOutS);
     }
