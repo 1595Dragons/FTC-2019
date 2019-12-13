@@ -23,8 +23,10 @@ public class B1AutoParkInside7935 extends LinearOpMode{
 
         robot.status("ready");
         waitForStart();
+        robot.DriveForward(DRIVE_SPEED,25,3);
+        robot.TurnByImu(TURN_SPEED,90,2);
+        robot.DriveForward(DRIVE_SPEED,30,2);
 
-        
 
     }
 }

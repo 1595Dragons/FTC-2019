@@ -56,6 +56,8 @@ public class AutoPickUpSkyStone extends LinearOpMode {
         robot.targetsSkyStone.activate();
         double visionX=0, visionY=0, visionTurn=0;
         int skystonePosition=1;
+
+
         robot.DriveForward(DRIVE_SPEED,29,2);
         visionY=robot.lookForStoneY(1);
         if (visionY==998){
@@ -72,17 +74,19 @@ public class AutoPickUpSkyStone extends LinearOpMode {
 
         //found stone or pick up the last one
         runtime.reset();
-        robot.lift.setPower(-0.4);//negative is up
+        //robot.lift.setPower(-0.4);//negative is up
         robot.DriveForward(DRIVE_SPEED,-10,1);
+        while(robot.lift_sensor.getState()==true){
+            robot.lift.setPower(0.8);
+        }
+        robot.lift.setPower(0);
+        /*
         while (opModeIsActive() && (runtime.seconds() < 0.3)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-        while(robot.lift_sensor.getState()==true){
-            robot.lift.setPower(0.5);
-        }
-        robot.lift.setPower(0);
-
+        c
+        */
         robot.intake_left.setPower(1);
         robot.intake_right.setPower(1);
         robot.DriveForward(DRIVE_SPEED,25,3);
