@@ -1,12 +1,12 @@
 package org.firstinspires.ftc.teamcode;
-        import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-        import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-        import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "B1AutoMoveFOundation7935", group = "Official")
+@Autonomous(name = "B1AutoMoveFoundation7935", group = "Official")
 //@Disabled
-public class B1AutoMoveFOundation7935 extends LinearOpMode {
+public class B1AutoMoveFoundation7935 extends LinearOpMode {
 
 
     //basic set up  code for search: 1001
@@ -74,3 +74,4 @@ public class B1AutoMoveFOundation7935 extends LinearOpMode {
     }
 
 }
+
