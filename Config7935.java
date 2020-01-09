@@ -48,7 +48,7 @@ public class Config7935 {
     BNO055IMU imu;
     DcMotor left_front, right_front, left_back, right_back;
 
-    Boolean stoneFind;
+    Boolean stoneFind=false;
     int team=1;//red = 1, blue = -1;
 
     // A timer object
@@ -410,7 +410,6 @@ public class Config7935 {
         this.right_front.setTargetPosition((int) Math.round(RFInches * EncoderNumberChangePerInch));
         this.left_back.setTargetPosition((int) Math.round(LBInches * EncoderNumberChangePerInch));
         this.right_back.setTargetPosition((int) Math.round(RBInches * EncoderNumberChangePerInch));
-
         // Set the motor speeds
         this.left_front.setPower(speed);
         this.right_front.setPower(speed);
@@ -427,7 +426,7 @@ public class Config7935 {
                 // Stop all motion, and reset the motors
                 this.resetMotorsForAutonomous(this.left_back, this.left_front, this.right_back, this.right_front);
             }
-            if (liftPower<0) {
+            if (liftPower>0) {
                 if (lift_sensor.getState() == false) {
                     lift.setPower(0);
                 }
@@ -442,6 +441,7 @@ public class Config7935 {
     void DriveForward(double speed,double distance,double timeOutS){
         distinctDrive(speed,-distance,-distance,-distance,-distance,timeOutS);
     }
+
     void DriveLeft(double speed,double distance,double timeOutS){
         distinctDrive(speed,distance,-distance,-distance,distance,timeOutS);
     }
@@ -449,8 +449,12 @@ public class Config7935 {
 
     void TurnByImu(double speed, int target, double timeOut) {
         double error = this.getError(target);
-        double magicNumber = 0.151;//over shoot a tiny bit when =0.19
-        distinctDrive(speed, error * magicNumber,error * magicNumber, -error * magicNumber,-error * magicNumber, timeOut);
+        double magicNumber = 0.149;//
+        double magicNumberS = 0.18;
+        if(error>30||error<-30)
+            distinctDrive(speed, error * magicNumber,error * magicNumber, -error * magicNumber,-error * magicNumber, timeOut);
+        else
+            distinctDrive(speed, error * magicNumberS,error * magicNumberS, -error * magicNumberS,-error * magicNumberS, timeOut);
         this.OpMode.telemetry.addData("error", error);
         this.OpMode.telemetry.addData("leftmove", -error*magicNumber);
         this.OpMode.telemetry.addData("current",this.getAngle());
@@ -471,7 +475,6 @@ public class Config7935 {
                             lastLocation = robotLocationTransform;
                         }
                         stoneFind=true;
-
                         break;
                     }
                 }
