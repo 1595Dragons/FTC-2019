@@ -37,80 +37,55 @@ public class AutoPickTwoStone7935 extends LinearOpMode {
             visionY=robot.lookForStoneY(0.5);
             if (visionY==998){
                 skyStonePosition=2;
-                robot.DriveLeft(SIDE_SPEED, -23*robot.team,2);
+                robot.DriveLeft(SIDE_SPEED, -22*robot.team,2);
                 robot.TurnByImu(TURN_SPEED,0,0.5);
             }
         }
 
         //found stone or pick up the last one
-        robot.distinctDrivePlus(0.3,10,10,10,10,1.5,1,1.5);
+        robot.distinctDrivePlus(0.4,10,10,10,10,1.5,1,1.5);
         robot.intake_left.setPower(1);
         robot.intake_right.setPower(1);
         robot.DriveForward(DRIVE_SPEED,27,2);
         robot.intake_left.setPower(0);
         robot.intake_right.setPower(0);
-        robot.DriveForward(DRIVE_SPEED,-25,2);
+        robot.DriveForward(DRIVE_SPEED,-29,2.2);
 
 
 
         //travel across field
         robot.TurnByImu(TURN_SPEED,-90*robot.team,1);
-        robot.DriveForward(.7,65-skyStonePosition*8,4);
+        robot.DriveForward(1,55-skyStonePosition*8,3);
         robot.intake_left.setPower(-1);
         robot.intake_right.setPower(-1);
-        robot.TurnByImu(TURN_SPEED,-90*robot.team,1);
-        robot.DriveForward(.7,-75,4);
+        robot.TurnByImu(TURN_SPEED,-90*robot.team,0.5);
+        robot.DriveForward(1,-65,4);
         robot.intake_left.setPower(0);
         robot.intake_right.setPower(0);
         distance=robot.distance_sensor.getDistance(DistanceUnit.INCH);
-        robot.DriveForward(DRIVE_SPEED,-distance+skyStonePosition*8,1.5);
-        robot.TurnByImu(TURN_SPEED,0,1);
+        if(skyStonePosition==0){
+            robot.DriveForward(DRIVE_SPEED,-distance+8,1.5);
+            robot.TurnByImu(TURN_SPEED,15,1.5);
+        }else {
+            robot.DriveForward(DRIVE_SPEED,-distance+skyStonePosition*8,1.5);
+            robot.TurnByImu(TURN_SPEED,0,1);
+        }
+
         //get the stone
         robot.intake_left.setPower(1);
         robot.intake_right.setPower(1);
         robot.DriveForward(DRIVE_SPEED,27,2);
         robot.intake_left.setPower(0);
         robot.intake_right.setPower(0);
-        robot.DriveForward(DRIVE_SPEED,-27,2);
+        robot.DriveForward(DRIVE_SPEED,-30,2.2);
         robot.TurnByImu(TURN_SPEED,-90*robot.team,1);
-        robot.DriveForward(.7,85-skyStonePosition*8,4);
+        robot.DriveForward(1,75-skyStonePosition*8,3);
         robot.intake_left.setPower(-1);
         robot.intake_right.setPower(-1);
-        robot.DriveForward(.7,-30,4);
+        robot.DriveForward(.7,-20,2);
         robot.intake_left.setPower(0);
         robot.intake_right.setPower(0);
 
-
-
-
-
-        /*
-        robot.distinctDrivePlus(DRIVE_SPEED,distance-13,distance-13,distance-13,distance-13,1,-1,0.5);
-        robot.TurnByImu(TURN_SPEED,0,1);
-
-        robot.distinctDrivePlus(DRIVE_SPEED,-14,-14,-14,-14,2,-1,0.5);
-        robot.intake_left.setPower(-1);
-        robot.intake_right.setPower(-1);
-        sleep(300);
-        while(robot.lift_sensor.getState()==true){
-            robot.lift.setPower(1);
-        }
-        robot.lift.setPower(0);
-        robot.intake_left.setPower(0);
-        robot.intake_right.setPower(0);
-        robot.DriveForward(DRIVE_SPEED,-40,2);
-        runtime.reset();
-        robot.lift.setPower(-1);
-        while (opModeIsActive() && (runtime.seconds() < 0.5)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-        robot.lift.setPower(0);
-        //robot.TurnByImu(0.3,90*robot.team,2);
-        robot.DriveLeft(SIDE_SPEED,35,2.5);
-        robot.TurnByImu(TURN_SPEED,90*robot.team,1);
-        robot.distinctDrivePlus(0.6,-25,-25,-25,-25,1.5,1,1);
-        */
 
 
         robot.targetsSkyStone.deactivate();
