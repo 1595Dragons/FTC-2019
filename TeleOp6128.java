@@ -43,6 +43,12 @@ public class TeleOp6128 extends LinearOpMode {
                 slowMode=false;
             }else{
                 powerMode=false;
+                if (gamepad2.left_bumper){
+                    slowMode=true;
+                }else{
+                    slowMode=false;
+                }
+
             }
 
             double driveForward = gamepad2.left_stick_y * speedMove, driveRightSide = gamepad2.left_stick_x * speedSide,
@@ -86,13 +92,13 @@ public class TeleOp6128 extends LinearOpMode {
                     robot.right_back.setPower(Range.clip((-driveRightSide + driveForward - turnRight), -1.0, 1.0));
                 }
             }else{
-                if (gamepad2.left_trigger>=0.1&&robot.right_button.getState()){
+                if (gamepad2.left_trigger>=0.1){
                     robot.left_front.setPower(Range.clip((gamepad2.left_trigger), -1.0, 1.0));
                     robot.right_front.setPower(Range.clip((-gamepad2.left_trigger), -1.0, 1.0));
                     robot.left_back.setPower(Range.clip((-gamepad2.left_trigger), -1.0, 1.0));
                     robot.right_back.setPower(Range.clip((gamepad2.left_trigger), -1.0, 1.0));
                 }
-                if (gamepad2.right_trigger>=0.1&&robot.left_button.getState()){
+                if (gamepad2.right_trigger>=0.1){
                     robot.left_front.setPower(Range.clip((-gamepad2.right_trigger), -1.0, 1.0));
                     robot.right_front.setPower(Range.clip((gamepad2.right_trigger), -1.0, 1.0));
                     robot.left_back.setPower(Range.clip((gamepad2.right_trigger), -1.0, 1.0));

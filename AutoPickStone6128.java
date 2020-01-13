@@ -33,56 +33,25 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "MoveFoundation6128Red", group = "Official")
+@Autonomous(name = "2020PickStone6128", group = "Official")
 //@Disabled
-public class B1AutoMoveFoundation6128 extends LinearOpMode {
-    //start position B1, park outside along the wall
+public class AutoPickStone6128 extends LinearOpMode {
 
-
-    //basic set up  code for search: 1001
     private static final double DRIVE_SPEED = .4, TURN_SPEED = .4, SIDE_SPEED = .3;
     private ElapsedTime runtime = new ElapsedTime();
     private Config6128 robot = new Config6128(this);
 
     public void runOpMode() {
-        //basic set up code1001
         robot.ConfigureRobtHardware();
         robot.resetMotorsForAutonomous(robot.left_back, robot.left_front, robot.right_back, robot.right_front);
-        robot.team=1;
         robot.status("ready");
         waitForStart();
-
-        robot.DriveForward(DRIVE_SPEED, 6, 2);
-        sleep(1000);
+        //initialize servo
         robot.servo_2.setPosition(robot.r2_out);
-        robot.DriveLeft(SIDE_SPEED, 20*robot.team, 3);
-        sleep(1000);
-        robot.servo_2.setPosition(robot.r2_in);
-        robot.servo_3.setPosition(robot.l3_in);
-        robot.TurnByImu(TURN_SPEED, 0 * robot.team, 2);
-        sleep(1000);
-        robot.DriveForward(DRIVE_SPEED, 26, 3);
-        sleep(1000);
+        robot.servo_3.setPosition(robot.l3_out);
         robot.lift_left.setPower(-0.4);
         robot.lift_right.setPower(-0.4);
 
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.7)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-        robot.lift_left.setPower(0);
-        robot.lift_right.setPower(0);
-        sleep(500);
-        robot.DriveForward(0.3, -40, 3);
-        robot.LiftUp(0.4,0.5);
-        sleep(2000);
-        robot.DriveForward(DRIVE_SPEED,3,1);
-        robot.TurnByImu(TURN_SPEED, 0, 2);
-        robot.DriveLeft(SIDE_SPEED, -100 *robot.team, 4);
-        //robot.TurnByImu(TURN_SPEED, 90*robot.team, 2);+
-        /*robot.lift_left.setPower(-0.4);
-        robot.lift_right.setPower(-0.4);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 0.5)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
@@ -90,9 +59,60 @@ public class B1AutoMoveFoundation6128 extends LinearOpMode {
         }
         robot.lift_left.setPower(0);
         robot.lift_right.setPower(0);
-        robot.TurnByImu(TURN_SPEED, 90*robot.team, 2);
-        robot.DriveForward(DRIVE_SPEED,,2);*/
+        robot.DriveForward(DRIVE_SPEED, 25, 2);
+        robot.intake_left.setPower(-1);
+        robot.intake_right.setPower(-1);
+        robot.DriveForward(DRIVE_SPEED,15,2);
+        robot.servo_2.setPosition(robot.r2_in);
+        robot.servo_3.setPosition(robot.l3_in);
+        sleep(500);
+        robot.intake_left.setPower(0);
+        robot.intake_right.setPower(0);
+        robot.servo_2.setPosition(robot.r2_squ);
+        robot.servo_3.setPosition(robot.l3_squ);
+        robot.DriveForward(DRIVE_SPEED,-20,3);
+        robot.TurnByImu(TURN_SPEED,-90*robot.team,1.5);
+        robot.DriveForward(DRIVE_SPEED,45,2);
+        robot.LiftUp(0.5,0.8);
+        robot.DriveForward(DRIVE_SPEED,10,1);
+        robot.servo_2.setPosition(robot.r2_out);
+        robot.servo_3.setPosition(robot.l3_out);
+        robot.intake_left.setPower(1);
+        robot.intake_right.setPower(1);
+        robot.DriveForward(DRIVE_SPEED,-10,1);
+        robot.LiftUp(-0.5,0.8);
+        robot.intake_left.setPower(0);
+        robot.intake_right.setPower(0);
+        robot.DriveForward(DRIVE_SPEED,-76,2.5);
 
+        //second one
+        robot.TurnByImu(TURN_SPEED,0,1.5);
 
-        }
+        robot.intake_left.setPower(-1);
+        robot.intake_right.setPower(-1);
+        robot.DriveForward(DRIVE_SPEED,20,2);
+        robot.servo_2.setPosition(robot.r2_in);
+        robot.servo_3.setPosition(robot.l3_in);
+        sleep(500);
+        robot.intake_left.setPower(0);
+        robot.intake_right.setPower(0);
+        robot.servo_2.setPosition(robot.r2_squ);
+        robot.servo_3.setPosition(robot.l3_squ);
+        robot.DriveForward(DRIVE_SPEED,-20,3);
+
+        robot.TurnByImu(TURN_SPEED,-90*robot.team,1.5);
+        robot.DriveForward(DRIVE_SPEED,76,2.5);
+        robot.LiftUp(0.4,1.2);
+        robot.DriveForward(DRIVE_SPEED,10,1);
+        robot.servo_2.setPosition(robot.r2_out);
+        robot.servo_3.setPosition(robot.l3_out);
+        robot.intake_left.setPower(1);
+        robot.intake_right.setPower(1);
+        robot.DriveForward(DRIVE_SPEED,-10,1);
+        robot.LiftUp(-0.4,1.2);
+        robot.DriveForward(DRIVE_SPEED,-15,2.5);
+        robot.intake_left.setPower(0);
+        robot.intake_right.setPower(0);
     }
+}
+

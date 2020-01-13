@@ -428,6 +428,16 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
         this.OpMode.telemetry.addData("current",this.getAngle());
         this.OpMode.telemetry.update();
     }
+    void LiftUp(double power, double timeOut){
+        this.lift_left.setPower(power);
+        this.lift_right.setPower(power);
+        this.timer.reset();
+        while (OpMode.opModeIsActive() && (timer.seconds() < timeOut)) {
+            OpMode.telemetry.update();
+        }
+        this.lift_left.setPower(0);
+        this.lift_right.setPower(0);
+    }
 
 
     double lookForStoneY(double timeoutS){

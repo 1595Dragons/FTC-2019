@@ -27,6 +27,7 @@ public class AutoPutStoneAndMoveFoundation7935 extends LinearOpMode {
         waitForStart();
         robot.targetsSkyStone.activate();
         robot.distinctDrivePlus(DRIVE_SPEED,-29,-29,-29,-29,2.5,-1,0.5);
+        robot.TurnByImu(TURN_SPEED,0,0.5);
         visionY=robot.lookForStoneY(0.5);
         if (visionY==998){
             robot.DriveLeft(SIDE_SPEED,10*robot.team,1);
@@ -47,7 +48,7 @@ public class AutoPutStoneAndMoveFoundation7935 extends LinearOpMode {
         //sleep(500);
         robot.intake_left.setPower(0);
         robot.intake_right.setPower(0);
-        robot.DriveForward(DRIVE_SPEED,-25,2);
+        robot.DriveForward(DRIVE_SPEED,-20,2);
 
 
         //travel across field
@@ -71,7 +72,7 @@ public class AutoPutStoneAndMoveFoundation7935 extends LinearOpMode {
         robot.lift.setPower(0);
         robot.intake_left.setPower(0);
         robot.intake_right.setPower(0);
-        robot.DriveForward(DRIVE_SPEED,-40,2);
+        robot.DriveForward(DRIVE_SPEED,-43,2);
         runtime.reset();
         robot.lift.setPower(-1);
         while (opModeIsActive() && (runtime.seconds() < 0.5)) {
@@ -80,10 +81,13 @@ public class AutoPutStoneAndMoveFoundation7935 extends LinearOpMode {
         }
         robot.lift.setPower(0);
         //robot.TurnByImu(0.3,90*robot.team,2);
-        robot.DriveLeft(SIDE_SPEED,35,2.5);
+        /*
+        robot.DriveLeft(SIDE_SPEED,35*robot.team,2.5);
         robot.TurnByImu(TURN_SPEED,90*robot.team,1);
         robot.distinctDrivePlus(0.6,-25,-25,-25,-25,1.5,1,1);
         //robot.distinctDrivePlus(0.7,25,-25,-25,25,2,1,1);
+
+         */
         robot.targetsSkyStone.deactivate();
     }
 

@@ -33,9 +33,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "MoveFoundation6128Red", group = "Official")
+@Autonomous(name = "MoveFoundation6128Blue", group = "Official")
 //@Disabled
-public class B1AutoMoveFoundation6128 extends LinearOpMode {
+public class B1AutoMoveFoundation6128Blue extends LinearOpMode {
     //start position B1, park outside along the wall
 
 
@@ -48,8 +48,9 @@ public class B1AutoMoveFoundation6128 extends LinearOpMode {
         //basic set up code1001
         robot.ConfigureRobtHardware();
         robot.resetMotorsForAutonomous(robot.left_back, robot.left_front, robot.right_back, robot.right_front);
-        robot.team=1;
+
         robot.status("ready");
+        robot.team=-1;
         waitForStart();
 
         robot.DriveForward(DRIVE_SPEED, 6, 2);
@@ -94,5 +95,5 @@ public class B1AutoMoveFoundation6128 extends LinearOpMode {
         robot.DriveForward(DRIVE_SPEED,,2);*/
 
 
-        }
     }
+}

@@ -49,7 +49,7 @@ public class AutoPickTwoStone7935 extends LinearOpMode {
         robot.DriveForward(DRIVE_SPEED,27,2);
         robot.intake_left.setPower(0);
         robot.intake_right.setPower(0);
-        robot.DriveForward(DRIVE_SPEED,-29,2.2);
+        robot.DriveForward(DRIVE_SPEED,-22,2.2);
 
 
 
@@ -65,19 +65,23 @@ public class AutoPickTwoStone7935 extends LinearOpMode {
         distance=robot.distance_sensor.getDistance(DistanceUnit.INCH);
         if(skyStonePosition==0){
             robot.DriveForward(DRIVE_SPEED,-distance+8,1.5);
-            robot.TurnByImu(TURN_SPEED,15,1.5);
+            robot.TurnByImu(TURN_SPEED,15*robot.team,1.5);
+            robot.intake_left.setPower(1);
+            robot.intake_right.setPower(1);
+            robot.DriveForward(DRIVE_SPEED,23,2);
+            robot.intake_left.setPower(0);
+            robot.intake_right.setPower(0);
+            robot.DriveForward(DRIVE_SPEED,-25,2.2);
         }else {
             robot.DriveForward(DRIVE_SPEED,-distance+skyStonePosition*8,1.5);
             robot.TurnByImu(TURN_SPEED,0,1);
+            robot.intake_left.setPower(1);
+            robot.intake_right.setPower(1);
+            robot.DriveForward(DRIVE_SPEED,21,2);
+            robot.intake_left.setPower(0);
+            robot.intake_right.setPower(0);
+            robot.DriveForward(DRIVE_SPEED,-24,2.2);
         }
-
-        //get the stone
-        robot.intake_left.setPower(1);
-        robot.intake_right.setPower(1);
-        robot.DriveForward(DRIVE_SPEED,27,2);
-        robot.intake_left.setPower(0);
-        robot.intake_right.setPower(0);
-        robot.DriveForward(DRIVE_SPEED,-30,2.2);
         robot.TurnByImu(TURN_SPEED,-90*robot.team,1);
         robot.DriveForward(1,75-skyStonePosition*8,3);
         robot.intake_left.setPower(-1);

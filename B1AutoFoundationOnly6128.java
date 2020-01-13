@@ -61,7 +61,7 @@ public class B1AutoFoundationOnly6128 extends LinearOpMode {
         robot.servo_3.setPosition(robot.l3_in);
         robot.TurnByImu(TURN_SPEED, 0 * robot.team, 2);
         sleep(1000);
-        robot.DriveForward(DRIVE_SPEED, 24, 3);
+        robot.DriveForward(DRIVE_SPEED, 25, 3);
         sleep(1000);
         robot.lift_left.setPower(-0.4);
         robot.lift_right.setPower(-0.4);
