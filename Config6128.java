@@ -44,7 +44,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
     double r0_down=1,l1_down=0,r0_up=0,l1_up=1,r0_middle=0.5,l1_middle=0.4;
     double r2_in=0.48,r2_out=0.65,r2_squ=0.43,l3_in=0.78,l3_out=0.53,l3_squ=0.88;
     BNO055IMU imu;
-    DigitalChannel left_button, right_button;
+    DigitalChannel left_button, right_button, lift_sensor;
     DcMotor left_front, right_front, left_back, right_back;
     DcMotor intake_left,intake_right,lift_right,lift_left;
     Boolean stoneFind;
@@ -173,6 +173,9 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
         this.left_button.setMode(DigitalChannel.Mode.INPUT);
         this.right_button=OpMode.hardwareMap.digitalChannel.get("right button");
         this.right_button.setMode(DigitalChannel.Mode.INPUT);
+
+        this.lift_sensor = OpMode.hardwareMap.get(DigitalChannel.class, "lift sensor");
+        this.lift_sensor.setMode(DigitalChannel.Mode.INPUT);
 
         this.status("Setting up imu...");
         final BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();

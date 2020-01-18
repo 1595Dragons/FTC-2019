@@ -34,6 +34,15 @@ public class TeleOp6128 extends LinearOpMode {
 
             robot.lift_right.setPower(liftPower);
             robot.lift_left.setPower(liftPower);
+            if (robot.lift_sensor.getState()==true){
+                robot.lift_right.setPower(liftPower);
+                robot.lift_left.setPower(liftPower);
+            }else {
+                if(gamepad1.left_stick_y<-0.1){
+                    robot.lift_right.setPower(liftPower);
+                    robot.lift_left.setPower(liftPower);
+                }
+            }
 
 
             //Power up function
