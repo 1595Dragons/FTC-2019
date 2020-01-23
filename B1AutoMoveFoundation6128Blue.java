@@ -62,21 +62,13 @@ public class B1AutoMoveFoundation6128Blue extends LinearOpMode {
         robot.servo_3.setPosition(robot.l3_in);
         robot.TurnByImu(TURN_SPEED, 0 * robot.team, 2);
         sleep(1000);
-        robot.DriveForward(DRIVE_SPEED, 26, 3);
+        robot.DriveForward(DRIVE_SPEED, 27, 3);
+        robot.DriveForward(0.2,4,0.5);
         sleep(1000);
-        robot.lift_left.setPower(-0.4);
-        robot.lift_right.setPower(-0.4);
-
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.7)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-        robot.lift_left.setPower(0);
-        robot.lift_right.setPower(0);
+        robot.LiftUp(-0.4,0.5);
         sleep(500);
         robot.DriveForward(0.3, -40, 3);
-        robot.LiftUp(0.4,0.5);
+        robot.LiftUp(0.4,1);
         sleep(2000);
         robot.DriveForward(DRIVE_SPEED,3,1);
         robot.TurnByImu(TURN_SPEED, 0, 2);
