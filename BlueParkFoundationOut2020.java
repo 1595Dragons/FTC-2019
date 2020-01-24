@@ -28,7 +28,7 @@ public class BlueParkFoundationOut2020 extends LinearOpMode {
         robot.servo_2.setPosition(robot.r2_in);
         robot.servo_3.setPosition(robot.l3_in);
 
-        robot.DriveForward(DRIVE_SPEED,20,);
+        robot.DriveForward(DRIVE_SPEED,20,2);
 
 
     }

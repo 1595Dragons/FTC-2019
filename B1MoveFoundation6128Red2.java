@@ -33,9 +33,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "MoveFoundation6128Blue", group = "Official")
+@Autonomous(name = "MoveFoundation6128Red2", group = "Official")
 //@Disabled
-public class B1AutoMoveFoundation6128Blue extends LinearOpMode {
+public class B1MoveFoundation6128Red2 extends LinearOpMode {
     //start position B1, park outside along the wall
 
 
@@ -56,7 +56,7 @@ public class B1AutoMoveFoundation6128Blue extends LinearOpMode {
         robot.DriveForward(DRIVE_SPEED, 6, 2);
         sleep(1000);
         robot.servo_2.setPosition(robot.r2_out);
-        robot.DriveLeft(SIDE_SPEED, 20*robot.team, 3);
+        robot.DriveLeft(SIDE_SPEED, -20*robot.team, 3);
         sleep(1000);
         robot.servo_2.setPosition(robot.r2_in);
         robot.servo_3.setPosition(robot.l3_in);
@@ -72,9 +72,9 @@ public class B1AutoMoveFoundation6128Blue extends LinearOpMode {
         sleep(2000);
         robot.DriveForward(DRIVE_SPEED,3,1);
         robot.TurnByImu(TURN_SPEED, 0, 2);
-        robot.DriveLeft(SIDE_SPEED, -50 *robot.team, 4);
+        robot.DriveLeft(SIDE_SPEED, 50 *robot.team, 4);
         robot.LiftUp(-0.4, 0.5 );
-        robot.DriveLeft(SIDE_SPEED, -30 *robot.team, 4);
+        robot.DriveLeft(SIDE_SPEED, 30 *robot.team, 4);
         //robot.TurnByImu(TURN_SPEED, 90*robot.team, 2);+
         /*robot.lift_left.setPower(-0.4);
         robot.lift_right.setPower(-0.4);
