@@ -53,8 +53,8 @@ public class TurnParkNoDelay extends LinearOpMode {
         robot.team=-1;
         waitForStart();
 
-        robot.DriveForward(DRIVE_SPEED,12,2);
-        robot.DriveLeft(SIDE_SPEED,36,4);
+        robot.DriveForward(DRIVE_SPEED,15,2);
+        robot.DriveLeft(SIDE_SPEED,38,4);
 
 
     }

@@ -33,11 +33,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import java.util.concurrent.Delayed;
-
-@Autonomous(name = "RedStraightPark20SecondDelay", group = "Official")
+@Autonomous(name = "RedTurnPark20SecondDelay", group = "Official")
 //@Disabled
-public class RedStraightPark20SecondDelay extends LinearOpMode {
+public class RedTurnPark20SecondDelay extends LinearOpMode {
     //start position B1, park outside along the wall
 
 
@@ -56,10 +54,12 @@ public class RedStraightPark20SecondDelay extends LinearOpMode {
         waitForStart();
 
         sleep(20000);
+        robot.DriveForward(DRIVE_SPEED,15,2);
         robot.DriveLeft(SIDE_SPEED,-38,4);
 
 
     }
 }
+
 
 

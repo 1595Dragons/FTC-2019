@@ -54,8 +54,8 @@ public class TurnPark20SecondDelay extends LinearOpMode {
         waitForStart();
 
         sleep(20000);
-        robot.DriveForward(DRIVE_SPEED,12,2);
-        robot.DriveLeft(SIDE_SPEED,36,4);
+        robot.DriveForward(DRIVE_SPEED,15,2);
+        robot.DriveLeft(SIDE_SPEED,38,4);
 
 
     }

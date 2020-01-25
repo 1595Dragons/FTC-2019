@@ -56,7 +56,7 @@ public class StraightPark20SecondDelay extends LinearOpMode {
         waitForStart();
 
         sleep(20000);
-        robot.DriveLeft(SIDE_SPEED,36,4);
+        robot.DriveLeft(SIDE_SPEED,38,4);
 
 
     }

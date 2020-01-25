@@ -53,7 +53,7 @@ public class StraightParkNoDelay extends LinearOpMode {
         robot.team=-1;
         waitForStart();
 
-        robot.DriveLeft(SIDE_SPEED,36,4);
+        robot.DriveLeft(SIDE_SPEED,38,4);
 
 
     }
