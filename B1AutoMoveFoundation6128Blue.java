@@ -70,7 +70,7 @@ public class B1AutoMoveFoundation6128Blue extends LinearOpMode {
         robot.DriveForward(0.3, -40, 3);
         robot.LiftUp(0.4,1);
         sleep(2000);
-        robot.DriveForward(DRIVE_SPEED,3,1);
+        robot.DriveForward(DRIVE_SPEED,1,1);
         robot.TurnByImu(TURN_SPEED, 0, 2);
         robot.DriveLeft(SIDE_SPEED, -50 *robot.team, 4);
         robot.LiftUp(-0.4, 0.5 );

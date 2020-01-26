@@ -33,9 +33,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "MoveFoundation6128Red2", group = "Official")
+@Autonomous(name = "SpecialAutoFor12547", group = "Official")
 //@Disabled
-public class B1MoveFoundation6128Red2 extends LinearOpMode {
+public class SpecialAutoFor12547 extends LinearOpMode {
     //start position B1, park outside along the wall
 
 
@@ -53,41 +53,8 @@ public class B1MoveFoundation6128Red2 extends LinearOpMode {
         robot.team=-1;
         waitForStart();
 
-        robot.DriveForward(DRIVE_SPEED, 6, 2);
-        sleep(1000);
-        robot.servo_2.setPosition(robot.r2_out);
-        robot.DriveLeft(SIDE_SPEED, -20*robot.team, 3);
-        sleep(1000);
-        robot.servo_2.setPosition(robot.r2_in);
-        robot.servo_3.setPosition(robot.l3_in);
-        robot.TurnByImu(TURN_SPEED, 0 * robot.team, 2);
-        sleep(1000);
-        robot.DriveForward(DRIVE_SPEED, 27, 3);
-        robot.DriveForward(0.2,4,0.5);
-        sleep(1000);
-        robot.LiftUp(-0.4,0.5);
-        sleep(500);
-        robot.DriveForward(0.3, -40, 3);
-        robot.LiftUp(0.4,1);
-        sleep(2000);
-        robot.DriveForward(DRIVE_SPEED,1,1);
-        robot.TurnByImu(TURN_SPEED, 0, 2);
-        robot.DriveLeft(SIDE_SPEED, 50 *robot.team, 4);
-        robot.LiftUp(-0.4, 0.5 );
-        robot.DriveLeft(SIDE_SPEED, 30 *robot.team, 4);
-        //robot.TurnByImu(TURN_SPEED, 90*robot.team, 2);+
-        /*robot.lift_left.setPower(-0.4);
-        robot.lift_right.setPower(-0.4);
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.5)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-        robot.lift_left.setPower(0);
-        robot.lift_right.setPower(0);
-        robot.TurnByImu(TURN_SPEED, 90*robot.team, 2);
-        robot.DriveForward(DRIVE_SPEED,,2);*/
-
+        sleep(22000);
+        robot.DriveLeft(SIDE_SPEED,19,4);
 
     }
 }
