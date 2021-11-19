@@ -54,7 +54,7 @@ public class SpecialAutoFor12547 extends LinearOpMode {
         waitForStart();
 
         sleep(22000);
-        robot.DriveLeft(SIDE_SPEED,19,4);
+        robot.DriveLeft(SIDE_SPEED,38,4);
 
     }
 }
